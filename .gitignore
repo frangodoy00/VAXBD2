@@ -7,6 +7,9 @@
 # BlueJ files
 *.ctxt
 
+# Al correr los tests aparece esto
+.imp
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
