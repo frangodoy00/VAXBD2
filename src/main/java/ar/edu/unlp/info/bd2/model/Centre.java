@@ -7,11 +7,11 @@ public class Centre {
 
 	private int id;
 	private String name;
-	private List<Personal> staff;
+	private List<Personal> staffs;
 	
 	public Centre(String name){
 		this.name = name;
-		this.staff = new ArrayList<Personal>();
+		this.staffs = new ArrayList<Personal>();
 	}
 	
 	public int getId() {
@@ -26,12 +26,15 @@ public class Centre {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<Personal> getStaff() {
-		return staff;
+	public List<Personal> getStaffs() {
+		return staffs;
 	}
-	public void setStaff(List<Personal> staff) {
-		this.staff = staff;
+	public void setStaffs(List<Personal> staff) {
+		this.staffs = staff;
 	}
 	
+	public void addStaff(Personal staff){
+		this.staffs.add(staff);
+	}
 	
 }
