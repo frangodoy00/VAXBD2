@@ -9,4 +9,12 @@ public class Patient {
         this.name = name;
         this.schedule = schedule;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

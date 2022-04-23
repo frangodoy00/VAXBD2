@@ -9,4 +9,12 @@ public class Vaccine {
         this.name = name;
         this.lab = lab;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
