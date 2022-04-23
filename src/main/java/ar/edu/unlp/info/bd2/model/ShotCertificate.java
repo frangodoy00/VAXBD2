@@ -12,7 +12,7 @@ public class ShotCertificate {
 
     private int numSerie;
 
-    Public ShotCertificate(Date date, int num) {
+    public ShotCertificate(Date date, int num) {
         this.date = date;
         this.numSerie = num;
     }

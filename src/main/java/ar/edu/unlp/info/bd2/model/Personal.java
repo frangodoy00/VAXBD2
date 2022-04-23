@@ -1,14 +1,15 @@
 package ar.edu.unlp.info.bd2.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class Personal {
 	
-	private int id;
-	private String fullName;
-	private int dni;
-	private List<Centre> centres;
+	protected int id;
+	protected String fullName;
+	protected int dni;
+	protected Collection<Centre> centres;
 	
 	public Personal(String name, int dni) {
 		this.fullName = name;
@@ -38,7 +39,7 @@ public abstract class Personal {
 		this.dni = dni;
 	}
 	
-	public List<Centre> getCentres(){
+	public Collection<Centre> getCentres(){
 		return this.centres;
 	}
 	

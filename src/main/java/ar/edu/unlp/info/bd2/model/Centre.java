@@ -1,13 +1,14 @@
 package ar.edu.unlp.info.bd2.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Centre {
 
 	private int id;
 	private String name;
-	private List<Personal> staffs;
+	private Collection<Personal> staffs;
 	
 	public Centre(String name){
 		this.name = name;
@@ -26,10 +27,10 @@ public class Centre {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<Personal> getStaffs() {
+	public Collection<Personal> getStaffs() {
 		return staffs;
 	}
-	public void setStaffs(List<Personal> staff) {
+	public void setStaffs(Collection<Personal> staff) {
 		this.staffs = staff;
 	}
 	
