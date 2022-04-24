@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import ar.edu.unlp.info.bd2.model.Centre;
 import ar.edu.unlp.info.bd2.model.Nurse;
-import ar.edu.unlp.info.bd2.model.Service;
 import ar.edu.unlp.info.bd2.model.Shot;
 import ar.edu.unlp.info.bd2.model.SupportStaff;
 import ar.edu.unlp.info.bd2.model.Patient;
@@ -14,8 +13,6 @@ import ar.edu.unlp.info.bd2.model.Vaccine;
 
 public class VaxRepository {
 
-	private Service servicio;
-	
 	/**
 	 *
 	 * @param email email del usuario con el cual ingresa al sitio
