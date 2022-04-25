@@ -4,14 +4,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+@Entity(name = "Personal")
 public abstract class Personal {
 	
+	@Id
+	@GeneratedValue
 	protected int id;
 	protected String fullName;
-	protected int dni;
+	@Column(unique=true)
+	protected String dni;
+	@ManyToMany(mappedBy = "staffs")
 	protected Collection<Centre> centres;
 	
-	public Personal(String name, int dni) {
+	public Personal(String name, String dni) {
 		this.fullName = name;
 		this.dni = dni;
 		this.centres = new ArrayList<Centre>();
@@ -32,10 +43,10 @@ public abstract class Personal {
 	public void setFullName(String name) {
 		this.fullName = name;
 	}
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	

@@ -1,12 +1,17 @@
 package ar.edu.unlp.info.bd2.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity(name = "SupportStaff")
+@Table(name = "supportStaff")
 public class SupportStaff extends Personal{
 	
 	private Area area;
 
-	public SupportStaff(String name, int dni, Area area) {
+	public SupportStaff(String name, String dni, String area) {
 		super(name,dni);
-		this.area = area;
+		this.area = new Area(area);
 	}
 	
 	public SupportStaff(String name) {

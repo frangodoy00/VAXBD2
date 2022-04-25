@@ -21,8 +21,32 @@ public class VaxServiceImpl implements VaxService{
      */
     Centre createCentre(String name) throws VaxException{
         Centre centro = new Centre(name);
-        this.servicio.addCentre(centro);
         return centro;
     }
-
+    
+    /**
+	 * @param dni el dni
+	 * @param fullName nombre del/la enfermero/a
+	 * @param experience experiencia en años
+	 * @return el enfermero creado
+	 * @throws VaxException
+	 */
+	Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException{
+		Nurse nurse = new Nurse(fullName,dni,experience);
+		return nurse;
+	}
+	
+	/**
+	* @param dni el dni
+	* @param fullName nombre completo
+	* @param area el area o areas de trabajo
+	* @return el personal de apoyo creado
+	* @throws VaxException
+	* */
+	SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException{
+		SupportStaff supp = new SupportStaff(fullName,dni,area);
+		return supp;
+	}
+	
+		
 }

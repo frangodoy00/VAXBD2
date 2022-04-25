@@ -1,7 +1,15 @@
 package ar.edu.unlp.info.bd2.model;
 
-public class Area {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity(name = "Area")
+@Table(name = "area")
+public class Area {
+	@Id
+	@GeneratedValue
 	private int id;
 	private String description;
 	
