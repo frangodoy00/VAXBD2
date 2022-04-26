@@ -13,7 +13,27 @@ public class VaxServiceImpl implements VaxService{
     public VaxServiceImpl(VaxRepository repository) {this.repository = repository;}
 
 
-    /**
+
+
+
+	/**
+	 *
+	 * @param patient paciente vacunado
+	 * @param vaccine vacuna aplicada
+	 * @param date fecha de aplicación
+	 * @param centre el centro de vacunación donde se aplicó
+	 * @param nurse enfermero/a que aplico la vacuna
+	 * @return el usuario creado
+	 * @throws VaxException
+	 */
+	Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException{
+		Shot shot = new Shot(patient,vaccine,date,centre,nurse);
+		return shot;
+
+	}
+
+
+	/**
      *
      * @param name nombre del centro de vacunación
      * @return el centro de vacunación nuevo

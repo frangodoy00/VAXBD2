@@ -1,15 +1,30 @@
 package ar.edu.unlp.info.bd2.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Entity
+@Table ( name  = "Centre")
 public class Centre {
 
+	@Id
+	@GeneratedValue( strategy = GenerationType.AUTO)
+	@Column( name = "Id", unique = true, nullable = false)
 	private int id;
+
+	@Id
+	@Column( name = "Name")
 	private String name;
+
+	@ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn( name = "Staffs")
 	private Collection<Personal> staffs;
-	
+
+	public Centre(){
+
+	}
 	public Centre(String name){
 		this.name = name;
 		this.staffs = new ArrayList<Personal>();

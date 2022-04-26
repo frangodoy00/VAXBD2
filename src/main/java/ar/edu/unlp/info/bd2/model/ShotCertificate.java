@@ -4,14 +4,26 @@ import java.util.Date;
 
 import net.bytebuddy.matcher.NullMatcher;
 
+import javax.persistence.*;
+
+@Entity
+@Table( name = "ShotCertificate")
 public class ShotCertificate {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="Id", unique = true, nullable = false)
     private int id;
 
+    @Column( name = "Date")
     private Date date;
 
+    @Column( name = "Numserie")
     private int numSerie;
 
+    public ShotCertificate(){
+
+    }
     public ShotCertificate(Date date, int num) {
         this.date = date;
         this.numSerie = num;
