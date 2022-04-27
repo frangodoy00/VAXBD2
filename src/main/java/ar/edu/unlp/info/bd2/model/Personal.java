@@ -4,22 +4,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 
 @Entity(name = "Personal")
 public abstract class Personal {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected int id;
+	@Column( name = "FullName")
 	protected String fullName;
-	@Column(unique=true)
+	@Column( name = "Dni", unique=true)
 	protected String dni;
-	@ManyToMany(mappedBy = "staffs")
+	@ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn( name = "Centres")
 	protected Collection<Centre> centres;
 	
 	public Personal(String name, String dni) {

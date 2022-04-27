@@ -1,12 +1,14 @@
 package ar.edu.unlp.info.bd2.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity(name = "Nurse")
+@Entity
 @Table(name = "nurse")
 public class Nurse extends Personal{
 
+	@Column( name = "YearsExperience")
 	private Integer yearsExperience;
 
 	public Nurse(String name, String dni, int years) {
