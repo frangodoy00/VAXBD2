@@ -1,11 +1,11 @@
 package ar.edu.unlp.info.bd2.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "supportStaff")
+@DiscriminatorValue("2")
 public class SupportStaff extends Personal{
 	
 	@OneToOne

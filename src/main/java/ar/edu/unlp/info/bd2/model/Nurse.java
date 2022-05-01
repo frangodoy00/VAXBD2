@@ -1,11 +1,11 @@
 package ar.edu.unlp.info.bd2.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "nurse")
+@DiscriminatorValue("1")
 public class Nurse extends Personal{
 
 	@Column( name = "YearsExperience")

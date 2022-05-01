@@ -39,9 +39,11 @@ public class VaxServiceImpl implements VaxService{
      * @return el centro de vacunación nuevo
      * @throws VaxException
      */
-    Centre createCentre(String name) throws VaxException{
+    public Centre createCentre(String name) throws VaxException{
         Centre centro = new Centre(name);
-        return centro;
+        int id = this.repository.save(centro);
+        Centre c = this.repository.getCentreById(id);
+        return c;
     }
     
     /**
