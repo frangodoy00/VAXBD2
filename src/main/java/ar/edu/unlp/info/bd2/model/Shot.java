@@ -37,12 +37,13 @@ public class Shot {
     public Shot(){
 
     }
-    public Shot(Patient patient, Vaccine vaccine,Date dateApplication, Centre centre,Nurse nurse){
+    public Shot(Patient patient, Vaccine vaccine,Date dateApplication, Centre centre,Nurse nurse,ShotCertificate certificate){
         this.dateApplication = dateApplication;
         this.patient = patient;
         this.vaccine = vaccine;
         this.centre = centre;
         this.nurse = nurse;
+        this.certificate = certificate;
     }
     public int getId() {
         return id;

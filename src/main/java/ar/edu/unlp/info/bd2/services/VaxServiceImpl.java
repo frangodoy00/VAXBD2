@@ -15,6 +15,18 @@ public class VaxServiceImpl implements VaxService{
 
 
 
+	/**
+	 *
+	 * @param date fecha de aplicación
+	 * @return el usuario creado
+	 * @throws VaxException
+	 */
+	public ShotCertificate createShotCertificate(Date date)throws VaxException{
+		ShotCertificate shotCertificate = new ShotCertificate(date);
+		int id = this.repository.save(shotCertificate);
+		ShotCertificate sc = this.repository.getShotCertificateById(id);
+		return sc;
+	}
 
 	/**
 	 *
@@ -26,8 +38,13 @@ public class VaxServiceImpl implements VaxService{
 	 * @return el usuario creado
 	 * @throws VaxException
 	 */
-	Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException{
-		Shot shot = new Shot(patient,vaccine,date,centre,nurse);
+	public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException{
+		/** genero el certificado primero para asocialo al shot */
+		ShotCertificate certificate=  this.createShotCertificate(date);
+
+		Shot shot = new Shot(patient,vaccine,date,centre,nurse,certificate);
+		int id = this.repository.save(shot);
+		Shot s = this.repository.getShotById(id);
 		return shot;
 
 	}

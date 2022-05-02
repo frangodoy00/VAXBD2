@@ -7,17 +7,10 @@ import java.util.Optional;
 import javax.management.Query;
 import javax.transaction.Transaction;
 
+import ar.edu.unlp.info.bd2.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import ar.edu.unlp.info.bd2.model.Centre;
-import ar.edu.unlp.info.bd2.model.Nurse;
-import ar.edu.unlp.info.bd2.model.Shot;
-import ar.edu.unlp.info.bd2.model.SupportStaff;
-import ar.edu.unlp.info.bd2.model.Patient;
-import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
-import ar.edu.unlp.info.bd2.model.Vaccine;
 
 public class VaxRepository {
 
@@ -36,6 +29,14 @@ public class VaxRepository {
 			VaxException exception = new VaxException("No se pudo realizar el alta.");
 			throw e;
 		}
+	}
+
+	public Shot getShotById(int id){
+		return (Shot)sessionFactory.getCurrentSession().createQuery("from Shot s where s.id = id").setParameter("id",id).uniqueResult();
+	}
+
+	public ShotCertificate getShotCertificateById(int id){
+		return (ShotCertificate) sessionFactory.getCurrentSession().createQuery("from ShotCertificate sc where sc.id = id").setParameter("id",id).uniqueResult();
 	}
 	
 	public Centre getCentreById(int id){

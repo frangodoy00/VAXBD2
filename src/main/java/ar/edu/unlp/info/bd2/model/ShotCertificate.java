@@ -1,6 +1,7 @@
 package ar.edu.unlp.info.bd2.model;
 
 import java.util.Date;
+import java.util.Random;
 
 import net.bytebuddy.matcher.NullMatcher;
 
@@ -24,9 +25,9 @@ public class ShotCertificate {
     public ShotCertificate(){
 
     }
-    public ShotCertificate(Date date, int num) {
+    public ShotCertificate(Date date) {
         this.date = date;
-        this.numSerie = num;
+        this.numSerie = (int)(Math.random()*999999 + 0);  /** chequear q no exista en bd ?  */
     }
 
     public int getId(){ return id; }
