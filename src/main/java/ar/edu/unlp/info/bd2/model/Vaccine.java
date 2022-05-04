@@ -14,6 +14,7 @@ public class Vaccine {
     @Column(name="Name", nullable = false)
     private String name;
 
+    @Column(name="Lab", nullable = false)
     private String lab;
 
     public Vaccine() {
