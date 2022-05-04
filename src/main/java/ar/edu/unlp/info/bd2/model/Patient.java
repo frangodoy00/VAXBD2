@@ -3,6 +3,8 @@ package ar.edu.unlp.info.bd2.model;
 import sun.util.calendar.BaseCalendar;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -26,8 +28,11 @@ public class Patient {
     @Column(name="DayOfBirth", nullable = false)
     private Date dayOfBirth;
 
-    public Patient() {
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Shot> shots;
 
+    public Patient() {
+        this.shots = new ArrayList<Shot>();
     }
 
     public Patient(String email, String fullname, String password, Date dayOfBirth){
@@ -35,6 +40,7 @@ public class Patient {
         this.fullname = fullname;
         this.password = password;
         this.dayOfBirth = dayOfBirth;
+        this.shots = new ArrayList<Shot>();
     }
 
     public int getId() { return this.id; }
@@ -51,4 +57,8 @@ public class Patient {
 
     public Date getDayOfBirth() { return this.dayOfBirth; }
     public void setDayOfBirth(Date dayOfBirth) { this.dayOfBirth = dayOfBirth; }
+
+    public Collection<Shot> getShots() { return this.shots; }
+
+    public void addShot(Shot shot) { this.shots.add(shot); }
 }
