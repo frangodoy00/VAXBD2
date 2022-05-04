@@ -70,7 +70,7 @@ public class VaxServiceImpl implements VaxService{
 	 * @return el enfermero creado
 	 * @throws VaxException
 	 */
-	Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException{
+	public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException{
 		Nurse nurse = new Nurse(fullName,dni,experience);
 		return nurse;
 	}
@@ -82,7 +82,7 @@ public class VaxServiceImpl implements VaxService{
 	* @return el personal de apoyo creado
 	* @throws VaxException
 	* */
-	SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException{
+	public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException{
 		SupportStaff supp = new SupportStaff(fullName,dni,area);
 		return supp;
 	}

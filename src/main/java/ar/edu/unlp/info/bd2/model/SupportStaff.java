@@ -1,14 +1,16 @@
 package ar.edu.unlp.info.bd2.model;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("2")
 public class SupportStaff extends Personal{
-	
+
+
 	@OneToOne
+	//Alternativa, consultar:
+	//	@ManyToOne(fetch = FetchType.EAGER)
+	//	@JoinColumn(name = "area_id")
 	private Area area;
 
 	public SupportStaff(String name, String dni, String area) {
