@@ -14,7 +14,15 @@ public class VaccinationSchedule {
     @Column(name="id", unique = true, nullable = false)
     private int id;
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "vaccinationschedule_vaccine",
+            joinColumns = {@JoinColumn(name = "vaccinationschedule_id")},
+            inverseJoinColumns = {@JoinColumn(name = "vaccine_id")}
+    )
     private List<Vaccine> vaccines;
 
     public VaccinationSchedule(){
