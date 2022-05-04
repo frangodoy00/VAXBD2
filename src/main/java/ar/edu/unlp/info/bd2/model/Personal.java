@@ -28,8 +28,7 @@ public abstract class Personal {
 	protected String fullName;
 	@Column( name = "dni", unique=true)
 	protected String dni;
-	@ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn( name = "centres")
+	@ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "staffs")
 	protected Collection<Centre> centres;
 	
 	public Personal(String name, String dni) {

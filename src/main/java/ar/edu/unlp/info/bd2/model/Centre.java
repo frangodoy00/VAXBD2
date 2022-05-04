@@ -17,8 +17,12 @@ public class Centre {
 	@Column( name = "name")
 	private String name;
 
-	@ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn( name = "staffs")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "personal_centre",
+			joinColumns = {@JoinColumn(name = "centre_id")},
+			inverseJoinColumns = {@JoinColumn(name = "personal_id")}
+	)
 	private Collection<Personal> staffs;
 
 	public Centre(){
