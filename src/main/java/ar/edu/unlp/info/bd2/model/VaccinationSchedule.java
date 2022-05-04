@@ -15,15 +15,17 @@ public class VaccinationSchedule {
     private int id;
 
     @ManyToMany
-    private Collection<Vaccine> sequence;
+    private List<Vaccine> vaccines;
 
     public VaccinationSchedule(){
-        this.sequence = new ArrayList<Vaccine>();
+        this.vaccines = new ArrayList<Vaccine>();
     }
 
     public int getId() { return this.id; }
     public void setId(int id) { this.id = id; }
 
-    public Collection<Vaccine> getSequence() { return this.sequence; }
-    public void setSequence(Collection<Vaccine> sequence) { this.sequence = sequence; }
+    public List<Vaccine> getVaccines() { return this.vaccines; }
+
+    public void addVaccine(Vaccine vaccine) { this.vaccines.add(vaccine); }
+
 }
