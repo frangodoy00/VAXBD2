@@ -18,19 +18,19 @@ public class Shot {
     @JoinColumn(name = "Certificate")
     private ShotCertificate certificate;
 
-    @OneToOne( cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Patient")
     private Patient patient;
 
-    @OneToOne( cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Vaccine")
     private Vaccine vaccine;
 
-    @OneToOne( cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Centre")
     private Centre centre;
 
-    @OneToOne( cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Nurse")
     private Nurse nurse;
 
