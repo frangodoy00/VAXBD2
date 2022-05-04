@@ -26,9 +26,6 @@ public class Patient {
     @Column(name="DayOfBirth", nullable = false)
     private Date dayOfBirth;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private VaccinationSchedule schedule;
-
     public Patient() {
 
     }
@@ -54,11 +51,4 @@ public class Patient {
 
     public Date getDayOfBirth() { return this.dayOfBirth; }
     public void setDayOfBirth(Date dayOfBirth) { this.dayOfBirth = dayOfBirth; }
-
-    public VaccinationSchedule getSchedule() {
-        return this.schedule;
-    }
-    public void setSchedule(VaccinationSchedule schedule) {
-        this.schedule = schedule;
-    }
 }
