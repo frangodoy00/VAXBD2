@@ -19,8 +19,11 @@ public class SupportStaff extends Personal{
 	public SupportStaff(String name) {
 		super(name);
 	}
-	
-	
+
+	public SupportStaff() {
+
+	}
+
 	public Area getArea() {
 		return area;
 	}

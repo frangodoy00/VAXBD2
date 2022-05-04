@@ -19,7 +19,11 @@ public class Nurse extends Personal{
 	public Nurse(String name) {
 		super(name);
 	}
-	
+
+	public Nurse() {
+		super();
+	}
+
 	public int getYearsExperience() {
 		return yearsExperience;
 	}

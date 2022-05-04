@@ -40,7 +40,11 @@ public abstract class Personal {
 	public Personal(String name){
 		this.fullName = name;
 	}
-	
+
+	public Personal() {
+
+	}
+
 	public int getId() {
 		return id;
 	}

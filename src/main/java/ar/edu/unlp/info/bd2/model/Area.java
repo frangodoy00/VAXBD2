@@ -20,7 +20,11 @@ public class Area {
 	public Area(String desc){
 		this.description = desc;
 	}
-	
+
+	public Area() {
+
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -6,8 +6,15 @@ import javax.persistence.*;
 @Table(name = "Patient")
 public class Patient {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID", unique = true, nullable = false)
     private int id;
+
+    @Column(name="Name", nullable = false)
     private String name;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private VaccinationSchedule schedule;
 
     public Patient() {
@@ -18,17 +25,13 @@ public class Patient {
         this.name = name;
         this.schedule = schedule;
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", unique = true, nullable = false)
+
     public int getId() { return this.id; }
     public void setId(int id) { this.id = id; }
 
-    @Column(name="Name", nullable = false)
     public String getName() { return this.name; }
     public void setName(String name) { this.name = name; }
 
-    @ManyToOne(fetch = FetchType.EAGER)
     public VaccinationSchedule getSchedule() {
         return this.schedule;
     }
