@@ -35,4 +35,11 @@ public class Vaccine {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getLab() {
+        return this.lab;
+    }
+    public void setLab(String lab) {
+        this.lab = lab;
+    }
 }
