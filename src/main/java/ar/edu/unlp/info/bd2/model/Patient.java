@@ -8,7 +8,7 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", unique = true, nullable = false)
+    @Column(name="Id", unique = true, nullable = false)
     private int id;
 
     @Column(name="Name", nullable = false)

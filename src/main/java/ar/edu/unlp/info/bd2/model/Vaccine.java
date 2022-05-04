@@ -3,12 +3,12 @@ package ar.edu.unlp.info.bd2.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "VACCINE")
+@Table(name = "Vaccine")
 public class Vaccine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", unique = true, nullable = false)
+    @Column(name="Id", unique = true, nullable = false)
     private int id;
 
     @Column(name="Name", nullable = false)

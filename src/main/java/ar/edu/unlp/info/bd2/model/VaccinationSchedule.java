@@ -6,12 +6,12 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "VACCINATION_SCHEDULE")
+@Table(name = "Vaccination_Schedule")
 public class VaccinationSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", unique = true, nullable = false)
+    @Column(name="Id", unique = true, nullable = false)
     private int id;
 
     @ManyToMany
