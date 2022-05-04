@@ -28,7 +28,7 @@ public class Patient {
     @Column(name="dayOfBirth", nullable = false)
     private Date dayOfBirth;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Shot> shots;
 
     public Patient() {
