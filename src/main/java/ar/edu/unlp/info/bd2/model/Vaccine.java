@@ -14,16 +14,12 @@ public class Vaccine {
     @Column(name="Name", nullable = false)
     private String name;
 
-    @Column(name="Lab", nullable = false)
-    private String lab;
-
     public Vaccine() {
 
     }
 
-    public Vaccine(String name, String lab){
+    public Vaccine(String name){
         this.name = name;
-        this.lab = lab;
     }
 
     public int getId() { return this.id; }
@@ -34,12 +30,5 @@ public class Vaccine {
     }
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLab() {
-        return this.lab;
-    }
-    public void setLab(String lab) {
-        this.lab = lab;
     }
 }
