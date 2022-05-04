@@ -14,23 +14,23 @@ public class Shot {
     private Date dateApplication;
 
     @OneToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "certificate")
+    @JoinColumn(name = "certificate_id")
     private ShotCertificate certificate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "patient")
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "vaccine")
+    @JoinColumn(name = "vaccine_id")
     private Vaccine vaccine;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "centre")
+    @JoinColumn(name = "centre_id")
     private Centre centre;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "nurse")
+    @JoinColumn(name = "nurse_id")
     private Nurse nurse;
 
     public Shot(){
