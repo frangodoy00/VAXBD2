@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("1")
 public class Nurse extends Personal{
 
-	@Column( name = "YearsExperience")
+	@Column( name = "yearsExperience")
 	private Integer yearsExperience;
 
 	public Nurse(String name, String dni, int years) {

@@ -8,24 +8,24 @@ import java.util.Collection;
 import java.util.Date;
 
 @Entity
-@Table(name = "Patient")
+@Table(name = "patient")
 public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="Id", unique = true, nullable = false)
+    @Column(name="id", unique = true, nullable = false)
     private int id;
 
-    @Column(name="Email", nullable = false)
+    @Column(name="email", nullable = false)
     private String email;
 
-    @Column(name="Fullname", nullable = false)
+    @Column(name="fullname", nullable = false)
     private String fullname;
 
-    @Column(name="Password", nullable = false)
+    @Column(name="password", nullable = false)
     private String password;
 
-    @Column(name="DayOfBirth", nullable = false)
+    @Column(name="dayOfBirth", nullable = false)
     private Date dayOfBirth;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

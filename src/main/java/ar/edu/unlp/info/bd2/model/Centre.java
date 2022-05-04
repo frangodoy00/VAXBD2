@@ -6,19 +6,19 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table ( name  = "Centre")
+@Table ( name  = "centre")
 public class Centre {
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO)
-	@Column( name = "Id", unique = true, nullable = false)
+	@Column( name = "id", unique = true, nullable = false)
 	private int id;
 
-	@Column( name = "Name")
+	@Column( name = "name")
 	private String name;
 
 	@ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn( name = "Staffs")
+	@JoinColumn( name = "staffs")
 	private Collection<Personal> staffs;
 
 	public Centre(){

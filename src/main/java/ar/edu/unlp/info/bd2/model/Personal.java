@@ -17,19 +17,19 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 
-@Entity(name = "Personal")
+@Entity(name = "personal")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "personal_type", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Personal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected int id;
-	@Column( name = "FullName")
+	@Column( name = "fullName")
 	protected String fullName;
-	@Column( name = "Dni", unique=true)
+	@Column( name = "dni", unique=true)
 	protected String dni;
 	@ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn( name = "Centres")
+	@JoinColumn( name = "centres")
 	protected Collection<Centre> centres;
 	
 	public Personal(String name, String dni) {

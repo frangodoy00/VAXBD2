@@ -3,18 +3,18 @@ package ar.edu.unlp.info.bd2.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Vaccine")
+@Table(name = "vaccine")
 public class Vaccine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="Id", unique = true, nullable = false)
+    @Column(name="id", unique = true, nullable = false)
     private int id;
 
-    @Column(name="Name", nullable = false)
+    @Column(name="name", nullable = false)
     private String name;
 
-    @Column(name="Lab", nullable = false)
+    @Column(name="lab", nullable = false)
     private String lab;
 
     public Vaccine() {

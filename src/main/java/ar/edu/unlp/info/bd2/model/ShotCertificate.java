@@ -8,18 +8,18 @@ import net.bytebuddy.matcher.NullMatcher;
 import javax.persistence.*;
 
 @Entity
-@Table( name = "ShotCertificate")
+@Table( name = "shotCertificate")
 public class ShotCertificate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="Id", unique = true, nullable = false)
+    @Column(name="id", unique = true, nullable = false)
     private int id;
 
-    @Column( name = "Date")
+    @Column( name = "date")
     private Date date;
 
-    @Column( name = "Numserie")
+    @Column( name = "numserie")
     private int numSerie;
 
     public ShotCertificate(){

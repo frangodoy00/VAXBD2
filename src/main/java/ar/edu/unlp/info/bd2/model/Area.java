@@ -8,13 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Area")
+@Table(name = "area")
 public class Area {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column( name = "Id", unique = true, nullable = false)
+	@Column( name = "id", unique = true, nullable = false)
 	private int id;
-	@Column( name = "Descripcion")
+	@Column( name = "description")
 	private String description;
 	
 	public Area(String desc){

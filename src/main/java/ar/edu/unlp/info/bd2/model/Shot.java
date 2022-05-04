@@ -3,34 +3,34 @@ package ar.edu.unlp.info.bd2.model;
 import javax.persistence.*;
 import java.util.Date;
 @Entity
-@Table( name = "Shot")
+@Table( name = "shot")
 public class Shot {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="Id", unique = true, nullable = false)
+    @Column(name="id", unique = true, nullable = false)
     private int id;
 
-    @Column(name = "DateAplication")
+    @Column(name = "dateAplication")
     private Date dateApplication;
 
     @OneToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "Certificate")
+    @JoinColumn(name = "certificate")
     private ShotCertificate certificate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Patient")
+    @JoinColumn(name = "patient")
     private Patient patient;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Vaccine")
+    @JoinColumn(name = "vaccine")
     private Vaccine vaccine;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Centre")
+    @JoinColumn(name = "centre")
     private Centre centre;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Nurse")
+    @JoinColumn(name = "nurse")
     private Nurse nurse;
 
     public Shot(){
