@@ -13,7 +13,6 @@ public class Shot {
     @Column(name = "DateAplication")
     private Date dateApplication;
 
-
     @OneToOne( cascade = CascadeType.ALL)
     @JoinColumn(name = "Certificate")
     private ShotCertificate certificate;

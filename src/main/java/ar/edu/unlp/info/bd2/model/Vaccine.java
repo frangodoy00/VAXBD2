@@ -5,8 +5,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "VACCINE")
 public class Vaccine {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID", unique = true, nullable = false)
     private int id;
+
+    @Column(name="Name", nullable = false)
     private String name;
+
     private String lab;
 
     public Vaccine() {
@@ -18,13 +25,9 @@ public class Vaccine {
         this.lab = lab;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", unique = true, nullable = false)
     public int getId() { return this.id; }
     public void setId(int id) { this.id = id; }
 
-    @Column(name="Name", nullable = false)
     public String getName() {
         return this.name;
     }
