@@ -14,7 +14,6 @@ public class Centre {
 	@Column( name = "Id", unique = true, nullable = false)
 	private int id;
 
-	@Id
 	@Column( name = "Name")
 	private String name;
 
