@@ -145,5 +145,9 @@ public class VaxServiceImpl implements VaxService{
 	public Optional<Vaccine> getVaccineByName(String name){
 		return this.repository.getVaccineByName(name);
 	}
+	
+	public VaccinationSchedule getVaccinationScheduleById(int id){
+		return this.repository.getVaccinationScheduleById(id);
+	}
 		
 }

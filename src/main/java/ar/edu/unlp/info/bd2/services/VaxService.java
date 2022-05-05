@@ -57,6 +57,14 @@ public interface VaxService extends VaxStatisticsService{
 
 	/**
 	 *
+	 * @param id del Vaccination Schedule
+	 * @return el Vaccination Schedule
+	 * @throws VaxException
+	 */
+	VaccinationSchedule getVaccinationScheduleById(int id);
+	
+	/**
+	 *
 	 * @param name nombre del centro de vacunación
 	 * @return el centro de vacunación nuevo
 	 * @throws VaxException
