@@ -25,6 +25,10 @@ public class Vaccine {
         this.name = name;
         this.lab = lab;
     }
+    
+    public Vaccine(String name){
+        this.name = name;
+    }
 
     public int getId() { return this.id; }
     public void setId(int id) { this.id = id; }

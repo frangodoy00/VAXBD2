@@ -43,4 +43,31 @@ public class VaxRepository {
 		return (Centre)sessionFactory.getCurrentSession().createQuery("from Centre c where c.id = id").setParameter("id",id).uniqueResult();
 	}
 	
+	public Patient getPatientById(int id){
+		return (Patient)sessionFactory.getCurrentSession().createQuery("from Patient p where p.id = id").setParameter("id",id).uniqueResult();
+	}
+	
+	public Vaccine getVaccineById(int id){
+		return (Vaccine)sessionFactory.getCurrentSession().createQuery("from Vaccine v where v.id = id").setParameter("id",id).uniqueResult();
+	}
+	
+	public Nurse getNurseById(int id){
+		return (Nurse)sessionFactory.getCurrentSession().createQuery("from Nurse n where n.id = id").setParameter("id",id).uniqueResult();
+	}
+	
+	public SupportStaff getSupportStaffById(int id){
+		return (SupportStaff)sessionFactory.getCurrentSession().createQuery("from SupportStaff s where s.id = id").setParameter("id",id).uniqueResult();
+	}
+	
+	public VaccinationSchedule getVaccinationScheduleById(int id){
+		return (VaccinationSchedule)sessionFactory.getCurrentSession().createQuery("from VaccinationSchedule v where v.id = id").setParameter("id",id).uniqueResult();
+	}
+	
+	public Optional<Patient> getPatientByEmail(String email){
+		return (Optional<Patient>)sessionFactory.getCurrentSession().createQuery("from Patient p where p.email = email").setParameter("email",email).uniqueResult();
+	}
+	
+	public Optional<Vaccine> getVaccineByName(String name){
+		return (Optional<Vaccine>)sessionFactory.getCurrentSession().createQuery("from Vaccine v where v.name = name").setParameter("name",name).uniqueResult();
+	}
 }

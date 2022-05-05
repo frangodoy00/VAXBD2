@@ -13,8 +13,35 @@ public class VaxServiceImpl implements VaxService{
     public VaxServiceImpl(VaxRepository repository) {this.repository = repository;}
 
 
-
-
+    /**
+	 *
+	 * @param email email del usuario con el cual ingresa al sitio
+	 * @param fullname nombre y apellido del usuario
+	 * @param password clave con la que el usuario ingresa al sitio
+	 * @param dayOfBirth fecha de nacimiento del usuario
+	 * @return el usuario creado
+	 * @throws VaxException
+	 */
+    public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException{
+    	Patient patient = new Patient(email,fullname,password,dayOfBirth);
+		int id = this.repository.save(patient);
+		Patient p = this.repository.getPatientById(id);
+		return p;
+    }
+    
+    /**
+	 *
+	 * @param name nombre de la vacuna
+	 * @return la vacuna creada
+	 * @throws VaxException
+	 */
+	public Vaccine createVaccine(String name) throws VaxException{
+		Vaccine vaccine = new Vaccine(name);
+		int id = this.repository.save(vaccine);
+		Vaccine v = this.repository.getVaccineById(id);
+		return v;
+	}
+    
 	/**
 	 *
 	 * @param date fecha de aplicación
@@ -49,7 +76,6 @@ public class VaxServiceImpl implements VaxService{
 
 	}
 
-
 	/**
      *
      * @param name nombre del centro de vacunación
@@ -72,7 +98,9 @@ public class VaxServiceImpl implements VaxService{
 	 */
 	public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException{
 		Nurse nurse = new Nurse(fullName,dni,experience);
-		return nurse;
+		int id = this.repository.save(nurse);
+        Nurse n = this.repository.getNurseById(id);
+		return n;
 	}
 	
 	/**
@@ -84,8 +112,38 @@ public class VaxServiceImpl implements VaxService{
 	* */
 	public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException{
 		SupportStaff supp = new SupportStaff(fullName,dni,area);
-		return supp;
+		int id = this.repository.save(supp);
+        SupportStaff s = this.repository.getSupportStaffById(id);
+		return s;
 	}
 	
+	/**
+	 * @return el esquema nueva vacío
+	 * @throws VaxException
+	 * */
+	public VaccinationSchedule createVaccinationSchedule() throws VaxException{
+		VaccinationSchedule vacc = new VaccinationSchedule();
+		int id = this.repository.save(vacc);
+        VaccinationSchedule v = this.repository.getVaccinationScheduleById(id);
+		return v;
+	}
+	
+	/**
+	 * 
+	 * @param email email del usuario
+	 * @return
+	 */
+	public Optional<Patient> getPatientByEmail(String email){
+		return this.repository.getPatientByEmail(email);
+	}
+	
+	/**
+	 *
+	 * @param name nombre de la vacuna
+	 * @return
+	 */
+	public Optional<Vaccine> getVaccineByName(String name){
+		return this.repository.getVaccineByName(name);
+	}
 		
 }
