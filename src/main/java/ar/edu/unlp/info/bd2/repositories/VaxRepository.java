@@ -59,6 +59,10 @@ public class VaxRepository {
 		return (SupportStaff)sessionFactory.getCurrentSession().createQuery("from SupportStaff s where s.id = id").setParameter("id",id).uniqueResult();
 	}
 	
+	public VaccinationSchedule getVaccinationScheduleById(Long id){
+		return (VaccinationSchedule)sessionFactory.getCurrentSession().createQuery("from VaccinationSchedule v where v.id = id").setParameter("id",id).uniqueResult();
+	}
+	
 	public VaccinationSchedule getVaccinationScheduleById(int id){
 		return (VaccinationSchedule)sessionFactory.getCurrentSession().createQuery("from VaccinationSchedule v where v.id = id").setParameter("id",id).uniqueResult();
 	}
@@ -69,5 +73,13 @@ public class VaxRepository {
 	
 	public Optional<Vaccine> getVaccineByName(String name){
 		return (Optional<Vaccine>)sessionFactory.getCurrentSession().createQuery("from Vaccine v where v.name = name").setParameter("name",name).uniqueResult();
+	}
+	
+	public Optional<Centre> getCentreByName(String name){
+		return (Optional<Centre>)sessionFactory.getCurrentSession().createQuery("from Centre c where c.name = name").setParameter("name",name).uniqueResult();
+	}
+	
+	public Optional<SupportStaff> getSupportStaffByDni(String dni){
+		return (Optional<SupportStaff>)sessionFactory.getCurrentSession().createQuery("from SupportStaff s where s.dni = dni").setParameter("dni",dni).uniqueResult();
 	}
 }

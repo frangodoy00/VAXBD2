@@ -146,8 +146,55 @@ public class VaxServiceImpl implements VaxService{
 		return this.repository.getVaccineByName(name);
 	}
 	
+	/**
+	 * @param id el id del esquema
+	 * @return el esquema de vacunación
+	 * */
+	public VaccinationSchedule getVaccinationScheduleById(Long id){
+		return this.repository.getVaccinationScheduleById(id);
+	}
+	
 	public VaccinationSchedule getVaccinationScheduleById(int id){
 		return this.repository.getVaccinationScheduleById(id);
 	}
+	
+	/**
+	 * @param name el nombre del centro a buscar
+	 * @return el centro
+	 * */
+	public Optional<Centre> getCentreByName(String name) throws VaxException{
+		return this.repository.getCentreByName(name);
+	}
+	
+	/**
+	 * @param dni el dni del SupportStaff a buscar
+	 * @return el SupportStaff
+	 * */
+	public Optional<SupportStaff> getSupportStaffByDni(String dni){
+		return this.repository.getSupportStaffByDni(dni);
+	}
+	
+	/**
+	 * @param staff el staff a actualizar
+	 * @return el staff
+	 * @throws VaxException 
+	 */
+	public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException{
+		int id = this.repository.save(staff);
+        SupportStaff s = this.repository.getSupportStaffById(id);
+		return s;
+	}
+
+	/**
+	 * @param centre el centre a actualizar
+	 * @return el centre
+	 * @throws VaxException 
+	 */
+	public Centre updateCentre(Centre centre) {
+		int id = this.repository.save(centre);
+        Centre c = this.repository.getCentreById(id);
+        return c;
+	}
+
 		
 }
