@@ -83,4 +83,16 @@ public class Shot {
     public void setVaccine(Vaccine vaccine) {
         this.vaccine = vaccine;
     }
+
+    public Centre getCentre(){
+        return this.centre;
+    }
+
+    public Nurse getNurse(){
+        return this.nurse;
+    }
+
+    public ShotCertificate getShotCertificate(){
+        return this.certificate;
+    }
 }

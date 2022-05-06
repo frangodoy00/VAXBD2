@@ -20,14 +20,14 @@ public class ShotCertificate {
     private Date date;
 
     @Column( name = "numserie")
-    private int numSerie;
+    private int serialNumber;
 
     public ShotCertificate(){
 
     }
     public ShotCertificate(Date date) {
         this.date = date;
-        this.numSerie = (int)(Math.random()*999999 + 0);  /** chequear q no exista en bd ?  */
+        this.serialNumber = (int)(Math.random()*999999 + 0);  /** chequear q no exista en bd ?  */
     }
 
     public int getId(){ return id; }
@@ -40,10 +40,6 @@ public class ShotCertificate {
 
     public void setDate(Date date) {this.date = date; }
 
-    public int getNumSerie() { return numSerie; }
-
-    public void setNumSerie(int num){
-        this.numSerie = num;
-    }
+    public int getSerialNumber() { return serialNumber; }
 
 }
