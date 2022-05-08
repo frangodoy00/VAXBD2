@@ -56,7 +56,7 @@ public class VaxServiceTestCase {
     	VaxException ex = assertThrows(VaxException.class, () -> this.service.createPatient("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob));
     	assertEquals("Constraint Violation",ex.getMessage());
     }
-
+    /**
 	@Test
 	public void testCreateVaccine() throws VaxException{
 		Vaccine sp = this.service.createVaccine("Sinopharm");
@@ -158,5 +158,6 @@ public class VaxServiceTestCase {
 		}
 
 	}
+	*/
 
 }
