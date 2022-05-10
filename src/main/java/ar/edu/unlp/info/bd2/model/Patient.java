@@ -42,12 +42,12 @@ public class Patient {
         this.dayOfBirth = dayOfBirth;
         this.shots = new ArrayList<Shot>();
     }
-
+    
     public int getId() { return this.id; }
     public void setId(int id) { this.id = id; }
 
     public String getEmail() { return this.email; }
-    public void setEmail(String name) { this.email = email; }
+    public void setEmail(String name) { this.email = name; }
 
     public String getFullname() { return this.fullname; }
     public void setFullname(String fullname) { this.fullname = fullname; }

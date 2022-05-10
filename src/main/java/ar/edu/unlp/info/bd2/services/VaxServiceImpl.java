@@ -72,7 +72,7 @@ public class VaxServiceImpl implements VaxService{
 		Shot shot = new Shot(patient,vaccine,date,centre,nurse,certificate);
 		int id = this.repository.save(shot);
 		Shot s = this.repository.getShotById(id);
-		return shot;
+		return s;
 
 	}
 

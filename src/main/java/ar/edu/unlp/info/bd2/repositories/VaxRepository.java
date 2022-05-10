@@ -22,11 +22,11 @@ public class VaxRepository {
 		try {
 			Session sesion = sessionFactory.getCurrentSession();
 			int id =(int)sesion.save(object);
-			sesion.close();
+			//sesion.close();
 			return id;
 		}
-		catch(Exception e){
-			VaxException exception = new VaxException("No se pudo realizar el alta.");
+		catch(VaxException e) {
+			e = new VaxException("Constraint Violation");
 			throw e;
 		}
 	}
@@ -44,7 +44,7 @@ public class VaxRepository {
 	}
 	
 	public Patient getPatientById(int id){
-		return (Patient)sessionFactory.getCurrentSession().createQuery("from Patient p where p.id = id").setParameter("id",id).uniqueResult();
+		return (Patient)sessionFactory.getCurrentSession().createQuery("from Patient p where p.id = :id").setParameter("id",id).uniqueResult();
 	}
 	
 	public Vaccine getVaccineById(int id){
@@ -68,11 +68,12 @@ public class VaxRepository {
 	}
 	
 	public Optional<Patient> getPatientByEmail(String email){
-		return (Optional<Patient>)sessionFactory.getCurrentSession().createQuery("from Patient p where p.email = email").setParameter("email",email).uniqueResult();
+		return (Optional<Patient>)sessionFactory.getCurrentSession().createQuery("from Patient p where p.email = :email").setParameter("email",email).uniqueResultOptional();
 	}
 	
 	public Optional<Vaccine> getVaccineByName(String name){
 		return (Optional<Vaccine>)sessionFactory.getCurrentSession().createQuery("from Vaccine v where v.name = name").setParameter("name",name).uniqueResult();
+		
 	}
 	
 	public Optional<Centre> getCentreByName(String name){
