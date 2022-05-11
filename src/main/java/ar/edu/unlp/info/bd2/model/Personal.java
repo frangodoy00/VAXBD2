@@ -67,4 +67,8 @@ public abstract class Personal {
 		return this.centres;
 	}
 	
+	public void addCentre(Centre centre){
+		this.centres.add(centre);
+	}
+	
 }

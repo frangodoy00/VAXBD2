@@ -12,9 +12,9 @@ import javax.persistence.Table;
 public class Area {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column( name = "id", unique = true, nullable = false)
+	@Column(name = "id", unique = true, nullable = false)
 	private int id;
-	@Column( name = "description")
+	@Column(name = "description")
 	private String description;
 	
 	public Area(String desc){

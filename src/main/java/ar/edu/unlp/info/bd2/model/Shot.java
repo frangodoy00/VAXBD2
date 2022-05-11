@@ -43,7 +43,18 @@ public class Shot {
         this.centre = centre;
         this.nurse = nurse;
         this.certificate = certificate;
+        patient.addShot(this);
     }
+    
+    public Shot(Patient patient, Vaccine vaccine,Date dateApplication, Centre centre,Nurse nurse){
+        this.dateApplication = dateApplication;
+        this.patient = patient;
+        this.vaccine = vaccine;
+        this.centre = centre;
+        this.nurse = nurse;
+        patient.addShot(this);
+    }
+    
     public int getId() {
         return id;
     }
@@ -58,10 +69,6 @@ public class Shot {
 
     public void setDateApplication(Date dateApplication) {
         this.dateApplication = dateApplication;
-    }
-
-    public ShotCertificate getCertificate() {
-        return certificate;
     }
 
     public void setCertificate(ShotCertificate certificate) {

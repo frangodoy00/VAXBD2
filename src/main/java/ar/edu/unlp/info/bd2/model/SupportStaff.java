@@ -13,7 +13,7 @@ public class SupportStaff extends Personal{
 	//	@JoinColumn(name = "area_id")
 	private Area area;
 
-	public SupportStaff(String name, String dni, String area) {
+	public SupportStaff(String dni, String name, String area) {
 		super(name,dni);
 		this.area = new Area(area);
 	}

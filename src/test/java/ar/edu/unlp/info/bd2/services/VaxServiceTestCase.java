@@ -38,7 +38,7 @@ public class VaxServiceTestCase {
 		cal.set(Calendar.DAY_OF_MONTH, 17);
 		dob = cal.getTime();
 	}
-
+	
     @Test
     public void testCreatePatient() throws VaxException{
 		Patient fede = this.service.createPatient("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob);
@@ -56,7 +56,7 @@ public class VaxServiceTestCase {
     	VaxException ex = assertThrows(VaxException.class, () -> this.service.createPatient("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob));
     	assertEquals("Constraint Violation",ex.getMessage());
     }
-    /**
+ 
 	@Test
 	public void testCreateVaccine() throws VaxException{
 		Vaccine sp = this.service.createVaccine("Sinopharm");
@@ -72,7 +72,7 @@ public class VaxServiceTestCase {
 		VaxException ex = assertThrows(VaxException.class, () -> this.service.createVaccine("Sinopharm"));
 		assertEquals("Constraint Violation",ex.getMessage());
 	}
-
+	
 	@Test
 	public void testCreateShot() throws VaxException{
 		Patient fede = this.service.createPatient("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob);
@@ -90,7 +90,7 @@ public class VaxServiceTestCase {
 		assertNotNull(shot.getShotCertificate().getSerialNumber());
 		
 	}
-
+	
 	@Test
 	public void testCreateCentre() throws VaxException{
 		Centre nuevo = this.service.createCentre("Calle 2");
@@ -104,7 +104,7 @@ public class VaxServiceTestCase {
 		assertTrue(calle2.getStaffs().contains(fabian));
 		assertTrue(fabian.getCentres().contains(calle2));
 	}
-
+	
 	@Test
 	public void testCreateSupportStaff() throws VaxException{
 		Centre h = this.service.createCentre("Hospital Italiano");
@@ -158,6 +158,6 @@ public class VaxServiceTestCase {
 		}
 
 	}
-	*/
+
 
 }

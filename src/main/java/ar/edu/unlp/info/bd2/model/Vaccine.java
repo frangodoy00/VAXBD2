@@ -8,13 +8,13 @@ public class Vaccine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id", unique = true, nullable = false)
+    @Column(name="id", nullable = false)
     private int id;
 
     @Column(name="name", nullable = false)
     private String name;
 
-    @Column(name="lab", nullable = false)
+    @Column(name="lab")
     private String lab;
 
     public Vaccine() {

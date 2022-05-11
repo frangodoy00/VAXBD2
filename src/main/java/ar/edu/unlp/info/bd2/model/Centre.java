@@ -54,6 +54,7 @@ public class Centre {
 	
 	public void addStaff(Personal staff){
 		this.staffs.add(staff);
+		staff.addCentre(this);
 	}
 	
 }
