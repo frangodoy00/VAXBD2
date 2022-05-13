@@ -18,7 +18,7 @@ public class VaxRepository {
 	private SessionFactory sessionFactory;
 	
 	
-	public int save(Object object){
+	public int save(Object object) throws VaxException{
 		try {
 			Session sesion = sessionFactory.getCurrentSession();
 			int id =(int)sesion.save(object);
@@ -26,7 +26,7 @@ public class VaxRepository {
 		}
 		catch(Exception e) {
 			VaxException exception = new VaxException("Constraint Violation");
-			throw e;
+			throw exception;
 		}
 	}
 

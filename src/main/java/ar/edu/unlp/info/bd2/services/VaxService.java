@@ -119,7 +119,7 @@ public interface VaxService extends VaxStatisticsService{
 	 * @return el centre
 	 * @throws VaxException 
 	 */
-	Centre updateCentre(Centre centre);
+	Centre updateCentre(Centre centre) throws VaxException;
 
 	/**
 	 * @param dni el dni del SupportStaff a buscar

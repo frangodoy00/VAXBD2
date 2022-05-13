@@ -190,7 +190,7 @@ public class VaxServiceImpl implements VaxService{
 	 * @return el centre
 	 * @throws VaxException 
 	 */
-	public Centre updateCentre(Centre centre) {
+	public Centre updateCentre(Centre centre) throws VaxException{
 		int id = this.repository.save(centre);
         Centre c = this.repository.getCentreById(id);
         return c;
