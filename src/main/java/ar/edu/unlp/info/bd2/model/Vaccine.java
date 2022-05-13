@@ -11,7 +11,7 @@ public class Vaccine {
     @Column(name="id", nullable = false)
     private int id;
 
-    @Column(name="name", nullable = false)
+    @Column(name="name", unique = true, nullable = false)
     private String name;
 
     @Column(name="lab")

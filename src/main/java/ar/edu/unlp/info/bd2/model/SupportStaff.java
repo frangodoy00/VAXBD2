@@ -7,15 +7,12 @@ import javax.persistence.*;
 public class SupportStaff extends Personal{
 
 
-	@OneToOne
-	//Alternativa, consultar:
-	//	@ManyToOne(fetch = FetchType.EAGER)
-	//	@JoinColumn(name = "area_id")
-	private Area area;
+	@Column(name = "area")
+	private String area;
 
-	public SupportStaff(String dni, String name, String area) {
+	public SupportStaff(String name, String dni, String area) {
 		super(name,dni);
-		this.area = new Area(area);
+		this.area = area;
 	}
 	
 	public SupportStaff(String name) {
@@ -26,11 +23,11 @@ public class SupportStaff extends Personal{
 
 	}
 
-	public Area getArea() {
+	public String getArea() {
 		return area;
 	}
 
-	public void setArea(Area area) {
+	public void setArea(String area) {
 		this.area = area;
 	}
 }
