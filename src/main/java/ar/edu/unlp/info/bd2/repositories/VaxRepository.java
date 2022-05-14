@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import javax.management.Query;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transaction;
 
 import ar.edu.unlp.info.bd2.model.*;
@@ -18,16 +19,11 @@ public class VaxRepository {
 	private SessionFactory sessionFactory;
 	
 	
-	public int save(Object object) throws VaxException{
-		try {
-			Session sesion = sessionFactory.getCurrentSession();
-			int id =(int)sesion.save(object);
-			return id;
-		}
-		catch(Exception e) {
-			VaxException exception = new VaxException("Constraint Violation");
-			throw exception;
-		}
+	public int save(Object object){
+		Session sesion = sessionFactory.getCurrentSession();
+		int id =(int)sesion.save(object);
+		return id;
+
 	}
 
 	public Shot getShotById(int id){

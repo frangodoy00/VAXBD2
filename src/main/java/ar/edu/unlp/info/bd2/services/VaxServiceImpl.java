@@ -23,6 +23,10 @@ public class VaxServiceImpl implements VaxService{
 	 * @throws VaxException
 	 */
     public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException{
+		if ( this.repository.getPatientByEmail(email).isPresent()){
+			VaxException exception = new VaxException("Constraint Violation");
+			throw exception;
+		}
     	Patient patient = new Patient(email,fullname,password,dayOfBirth);
 		int id = this.repository.save(patient);
 		Patient p = this.repository.getPatientById(id);
@@ -36,6 +40,10 @@ public class VaxServiceImpl implements VaxService{
 	 * @throws VaxException
 	 */
 	public Vaccine createVaccine(String name) throws VaxException{
+		if ( this.repository.getVaccineByName(name).isPresent()){
+			VaxException exception = new VaxException("Constraint Violation");
+			throw exception;
+		}
 		Vaccine vaccine = new Vaccine(name);
 		int id = this.repository.save(vaccine);
 		Vaccine v = this.repository.getVaccineById(id);
