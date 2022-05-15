@@ -5,6 +5,7 @@ import ar.edu.unlp.info.bd2.repositories.VaxException;
 import ar.edu.unlp.info.bd2.repositories.VaxRepository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /*Aqui se debe realizar la implementacion de todos los metodos declarados en VaxService*/
@@ -204,5 +205,56 @@ public class VaxServiceImpl implements VaxService{
         return c;
 	}
 
-		
+	public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule) throws VaxException{
+		int id = this.repository.save(schedule);
+		VaccinationSchedule s = this.repository.getVaccinationScheduleById(id);
+		return s;
+	}
+
+	/**
+	 * @return Una lista con todos los pacientes
+	 */
+//	public List<Patient> getAllPatients();
+
+	/**
+	 * @return Una lista con todos los enfermeros que tengan más de <code>years</code> años de experiencia
+	 */
+//	public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){
+//		return this.repository.getNurseWithMoreThanNYearsExperience(years);
+//	}
+
+	/**
+	 * @return Una lista con los <code>n</code> centros que más staff tiene
+	 */
+//	public List<Centre> getCentresTopNStaff(int n);
+
+	/**
+	 * @return El centro que más vacunas aplico
+	 */
+//	public Centre getTopShotCentre();
+
+	/**
+	 * @return Una lista de los enfermeros que no aplicaron vacunas
+	 */
+//	public List<Nurse> getNurseNotShot();
+
+	/**
+	 * @return El area de Support Staff con menor cantidad de empleados
+	 */
+//	public String getLessEmployeesSupportStaffArea();
+
+	/**
+	 * @return Los empleados cuyo fullName contenga <code>name</code>
+	 */
+//	public List<Personal> getStaffWithName(String name);
+
+	/**
+	 * @return Una lista de las vacunas de las que no se aplicaron dosis
+	 */
+//	public List<Vaccine> getUnappliedVaccines();
+
+	/**
+	 * @return Una lista de los certificados emitidos en un rango de fechas
+	 */
+//	public List <ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate);
 }

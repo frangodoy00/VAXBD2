@@ -28,6 +28,10 @@ public class Nurse extends Personal{
 		return yearsExperience;
 	}
 
+	public Integer getExperience() {
+		return yearsExperience;
+	}
+
 	public void setYearsExperience(int yearsExperience) {
 		this.yearsExperience = yearsExperience;
 	}
