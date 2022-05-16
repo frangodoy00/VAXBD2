@@ -20,7 +20,7 @@ public interface VaxStatisticsService {
 	/**
 	 * @return Una lista con los <code>n</code> centros que más staff tiene
 	 */
-//	List<Centre> getCentresTopNStaff(int n);
+	List<Centre> getCentresTopNStaff(int n);
 	
 	/**
 	 * @return El centro que más vacunas aplico

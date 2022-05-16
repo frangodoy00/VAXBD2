@@ -228,7 +228,10 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Una lista con los <code>n</code> centros que más staff tiene
 	 */
-//	public List<Centre> getCentresTopNStaff(int n);
+	public List<Centre> getCentresTopNStaff(int n){
+		return this.repository.getCentresTopNStaff(n);
+	}
+
 
 	/**
 	 * @return El centro que más vacunas aplico

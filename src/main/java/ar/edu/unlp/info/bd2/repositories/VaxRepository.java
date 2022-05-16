@@ -1,6 +1,7 @@
 package ar.edu.unlp.info.bd2.repositories;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -61,6 +62,22 @@ public class VaxRepository {
 								//"having count(s) = max(count(s))"
 				)
 				.uniqueResult();
+	}
+
+	public List<Centre> getCentresTopNStaff(int n){
+		List<Centre> listAux = (List<Centre>)sessionFactory.getCurrentSession().createQuery(
+						"select c " +
+						"from Centre c join c.staffs as st " +
+						"group by c.id " +
+						"order by count(st) "
+				, Centre.class).getResultList();
+		// Consultar: No se si esta es la mejor opcion, seria mejor si la propia
+		// query separase los primeros n elementos
+		List<Centre> list = new ArrayList<Centre>();
+		 for (int i=0; i < n; i++) {
+			list.add(listAux.get(i));
+		}
+		 return list;
 	}
 
 	public Patient getPatientById(int id){
