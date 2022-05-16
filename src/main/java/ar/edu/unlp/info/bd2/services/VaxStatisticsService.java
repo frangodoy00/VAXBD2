@@ -25,7 +25,7 @@ public interface VaxStatisticsService {
 	/**
 	 * @return El centro que más vacunas aplico
 	 */
-//	Centre getTopShotCentre();
+	Centre getTopShotCentre();
 	
 	/**
 	 * @return Una lista de los enfermeros que no aplicaron vacunas

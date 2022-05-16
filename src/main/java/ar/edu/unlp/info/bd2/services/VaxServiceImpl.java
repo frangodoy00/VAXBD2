@@ -233,7 +233,9 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return El centro que más vacunas aplico
 	 */
-//	public Centre getTopShotCentre();
+	public Centre getTopShotCentre(){
+		return this.repository.getTopShotCentre();
+	}
 
 	/**
 	 * @return Una lista de los enfermeros que no aplicaron vacunas

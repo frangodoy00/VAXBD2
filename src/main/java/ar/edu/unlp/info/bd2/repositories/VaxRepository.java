@@ -47,6 +47,22 @@ public class VaxRepository {
 				.setParameter("id",id).uniqueResult();
 	}
 
+	public Centre getTopShotCentre(){
+		return (Centre)sessionFactory.getCurrentSession()
+				.createQuery(
+						"select c " +
+								"from Shot as s join s.centre as c " +
+								"group by c.id having count(s) >= all (" +
+									"select count(ss) from Shot as ss join ss.centre as cc group by c.id)"
+							// Alternativa: No se si este ultimo max() funcionara pero por ahora lo dejare asi
+								//"select c " +
+								//"from Shot as s join s.centre as c " +
+								//"group by c.id " +
+								//"having count(s) = max(count(s))"
+				)
+				.uniqueResult();
+	}
+
 	public Patient getPatientById(int id){
 		return (Patient)sessionFactory.getCurrentSession()
 				.createQuery("select p from Patient p where p.id = :id")
