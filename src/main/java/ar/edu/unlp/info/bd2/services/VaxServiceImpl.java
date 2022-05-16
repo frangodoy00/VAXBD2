@@ -248,15 +248,21 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Los empleados cuyo fullName contenga <code>name</code>
 	 */
-//	public List<Personal> getStaffWithName(String name);
+	public List<Personal> getStaffWithName(String name){
+		return this.repository.getStaffWithName(name);
+	}
 
 	/**
 	 * @return Una lista de las vacunas de las que no se aplicaron dosis
 	 */
-//	public List<Vaccine> getUnappliedVaccines();
+	public List<Vaccine> getUnappliedVaccines(){
+		return this.repository.getUnappliedVaccines();
+	}
 
 	/**
 	 * @return Una lista de los certificados emitidos en un rango de fechas
 	 */
-//	public List <ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate);
+	public List <ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate){
+		return this.repository.getShotCertificatesBetweenDates(startDate, endDate);
+	}
 }

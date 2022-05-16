@@ -34,6 +34,12 @@ public class VaxRepository {
 	public ShotCertificate getShotCertificateById(int id){
 		return (ShotCertificate) sessionFactory.getCurrentSession().createQuery("from ShotCertificate sc where sc.id = :id").setParameter("id",id).uniqueResult();
 	}
+	
+	public List<ShotCertificate> getShotCertificatesBetweenDates(Date start, Date end){
+		return (List<ShotCertificate>)sessionFactory.getCurrentSession()
+				.createQuery("select s from ShotCertificate s where s.date BETWEEN :start AND :end", ShotCertificate.class)
+				.setParameter("start",start).setParameter("end", end).getResultList();
+	}
 
 	public Centre getCentreById(int id){
 		return (Centre)sessionFactory.getCurrentSession()
@@ -61,6 +67,12 @@ public class VaxRepository {
 	public Vaccine getVaccineById(int id){
 		return (Vaccine)sessionFactory.getCurrentSession().createQuery("from Vaccine v where v.id = :id").setParameter("id",id).uniqueResult();
 	}
+	
+	public List<Vaccine> getUnappliedVaccines(){
+		return (List<Vaccine>)sessionFactory.getCurrentSession()
+				.createQuery("select v from Vaccine v EXCEPT select v from Vaccine v INNER JOIN Shot s ON(v.id=s.vaccine.id)", Vaccine.class)
+				.getResultList();
+	}
 
 	public Nurse getNurseById(int id){
 		return (Nurse)sessionFactory.getCurrentSession().createQuery("from Nurse n where n.id = :id").setParameter("id",id).uniqueResult();
@@ -76,6 +88,12 @@ public class VaxRepository {
 		return (SupportStaff)sessionFactory.getCurrentSession().createQuery("from SupportStaff s where s.id = :id").setParameter("id",id).uniqueResult();
 	}
 
+	public List<Personal> getStaffWithName(String name){
+		return (List<Personal>)sessionFactory.getCurrentSession()
+				.createQuery("select p from Personal p where p.fullName > :name", Personal.class)
+				.setParameter("name",name).getResultList();
+	}
+	
 	public VaccinationSchedule getVaccinationScheduleById(Long id){
 		return (VaccinationSchedule)sessionFactory.getCurrentSession().createQuery("from VaccinationSchedule v where v.id = :id").setParameter("id",id).uniqueResult();
 	}
