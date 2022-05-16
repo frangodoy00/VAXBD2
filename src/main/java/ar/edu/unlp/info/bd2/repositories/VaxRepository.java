@@ -36,11 +36,26 @@ public class VaxRepository {
 	}
 
 	public Centre getCentreById(int id){
-		return (Centre)sessionFactory.getCurrentSession().createQuery("from Centre c where c.id = :id").setParameter("id",id).uniqueResult();
+		return (Centre)sessionFactory.getCurrentSession()
+				.createQuery("select c from Centre c where c.id = :id")
+				.setParameter("id",id).uniqueResult();
 	}
 
 	public Patient getPatientById(int id){
-		return (Patient)sessionFactory.getCurrentSession().createQuery("from Patient p where p.id = :id").setParameter("id",id).uniqueResult();
+		return (Patient)sessionFactory.getCurrentSession()
+				.createQuery("select p from Patient p where p.id = :id")
+				.setParameter("id",id).uniqueResult();
+	}
+
+	public Optional<Patient> getPatientByEmail(String email){
+		return (Optional<Patient>)sessionFactory.getCurrentSession()
+				.createQuery("select p from Patient p where p.email = :email", Patient.class)
+				.setParameter("email",email).uniqueResultOptional();
+	}
+
+	public List<Patient> getAllPatients() {
+		return (List<Patient>)sessionFactory.getCurrentSession().createQuery(
+				"select p from Patient p", Patient.class).getResultList();
 	}
 
 	public Vaccine getVaccineById(int id){
@@ -50,11 +65,11 @@ public class VaxRepository {
 	public Nurse getNurseById(int id){
 		return (Nurse)sessionFactory.getCurrentSession().createQuery("from Nurse n where n.id = :id").setParameter("id",id).uniqueResult();
 	}
-	/**
-	 * @return Una lista con todos los enfermeros que tengan más de <code>years</code> años de experiencia
-	 */
+
 	public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){
-		return (List<Nurse>)sessionFactory.getCurrentSession().createQuery("from Nurse n where n.yearsExperience > :years").setParameter("years",years).getResultList();
+		return (List<Nurse>)sessionFactory.getCurrentSession()
+				.createQuery("select n from Nurse n where n.yearsExperience > :years", Nurse.class)
+				.setParameter("years",years).getResultList();
 	}
 
 	public SupportStaff getSupportStaffById(int id){
@@ -69,21 +84,23 @@ public class VaxRepository {
 		return (VaccinationSchedule)sessionFactory.getCurrentSession().createQuery("from VaccinationSchedule v where v.id = :id").setParameter("id",id).uniqueResult();
 	}
 
-	public Optional<Patient> getPatientByEmail(String email){
-		return (Optional<Patient>)sessionFactory.getCurrentSession().createQuery("from Patient p where p.email = :email").setParameter("email",email).uniqueResultOptional();
-	}
-
 	public Optional<Vaccine> getVaccineByName(String name){
-		return (Optional<Vaccine>)sessionFactory.getCurrentSession().createQuery("from Vaccine v where v.name = :name").setParameter("name",name).uniqueResultOptional();
+		return (Optional<Vaccine>)sessionFactory.getCurrentSession()
+				.createQuery("select v from Vaccine v where v.name = :name", Vaccine.class)
+				.setParameter("name",name).uniqueResultOptional();
 
 	}
 
 	public Optional<Centre> getCentreByName(String name){
-		return (Optional<Centre>)sessionFactory.getCurrentSession().createQuery("from Centre c where c.name = :name").setParameter("name",name).uniqueResultOptional();
+		return (Optional<Centre>)sessionFactory.getCurrentSession()
+				.createQuery("select c from Centre c where c.name = :name", Centre.class)
+				.setParameter("name",name).uniqueResultOptional();
 	}
 
 	public Optional<SupportStaff> getSupportStaffByDni(String dni){
-		return (Optional<SupportStaff>)sessionFactory.getCurrentSession().createQuery("from SupportStaff s where s.dni = :dni").setParameter("dni",dni).uniqueResultOptional();
+		return (Optional<SupportStaff>)sessionFactory.getCurrentSession()
+				.createQuery("select s from SupportStaff s where s.dni = :dni", SupportStaff.class)
+				.setParameter("dni",dni).uniqueResultOptional();
 	}
 
 

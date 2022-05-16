@@ -10,12 +10,12 @@ public interface VaxStatisticsService {
 	/**
 	 * @return Una lista con todos los pacientes
 	 */
-//	List<Patient> getAllPatients();
+	List<Patient> getAllPatients();
 	
 	/**
 	 * @return Una lista con todos los enfermeros que tengan más de <code>years</code> años de experiencia
 	 */
-//	List<Nurse> getNurseWithMoreThanNYearsExperience(int years);
+	List<Nurse> getNurseWithMoreThanNYearsExperience(int years);
 	
 	/**
 	 * @return Una lista con los <code>n</code> centros que más staff tiene

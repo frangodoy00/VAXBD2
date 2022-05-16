@@ -40,7 +40,7 @@ public class VaxStatisticsTestCase {
     VaxService service;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
+/*
     @BeforeAll
     public void prepareDB() throws Exception {
         this.initializer.prepareDB();
@@ -48,7 +48,7 @@ public class VaxStatisticsTestCase {
 
     @Test
     public void testTrue(){ assertEquals(1,1);}
-/*
+
     private <T> void assertListEquality(List<T> list1, List<T> list2) {
         if (list1.size() != list2.size()) {
           Assert.fail("Lists have different size");

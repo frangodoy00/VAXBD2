@@ -214,14 +214,16 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Una lista con todos los pacientes
 	 */
-//	public List<Patient> getAllPatients();
+	public List<Patient> getAllPatients() {
+		return this.repository.getAllPatients();
+	}
 
 	/**
 	 * @return Una lista con todos los enfermeros que tengan más de <code>years</code> años de experiencia
 	 */
-//	public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){
-//		return this.repository.getNurseWithMoreThanNYearsExperience(years);
-//	}
+	public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){
+		return this.repository.getNurseWithMoreThanNYearsExperience(years);
+	}
 
 	/**
 	 * @return Una lista con los <code>n</code> centros que más staff tiene
