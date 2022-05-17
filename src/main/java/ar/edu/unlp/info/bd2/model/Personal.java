@@ -22,7 +22,7 @@ import javax.persistence.ManyToMany;
 @DiscriminatorColumn(name = "personal_type", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Personal {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
 	@Column( name = "fullName")
 	protected String fullName;

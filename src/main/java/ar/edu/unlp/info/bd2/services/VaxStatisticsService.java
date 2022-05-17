@@ -30,7 +30,7 @@ public interface VaxStatisticsService {
 	/**
 	 * @return Una lista de los enfermeros que no aplicaron vacunas
 	 */
-//	List<Nurse> getNurseNotShot();
+	List<Nurse> getNurseNotShot();
 	
 	/**
 	 * @return El area de Support Staff con menor cantidad de empleados

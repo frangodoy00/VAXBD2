@@ -6,7 +6,7 @@ import java.util.Date;
 @Table( name = "shot")
 public class Shot {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", unique = true, nullable = false)
     private int id;
 
