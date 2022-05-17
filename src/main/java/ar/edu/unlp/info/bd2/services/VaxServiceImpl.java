@@ -243,12 +243,12 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Una lista de los enfermeros que no aplicaron vacunas
 	 */
-//	public List<Nurse> getNurseNotShot();
+	public List<Nurse> getNurseNotShot() { return this.repository.getNurseNotShot(); }
 
 	/**
 	 * @return El area de Support Staff con menor cantidad de empleados
 	 */
-//	public String getLessEmployeesSupportStaffArea();
+	public String getLessEmployeesSupportStaffArea(){ return this.repository.getLessEmployeesSupportStaffArea() ;}
 
 	/**
 	 * @return Los empleados cuyo fullName contenga <code>name</code>

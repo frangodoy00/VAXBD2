@@ -117,6 +117,12 @@ public class VaxRepository {
 				.setParameter("years",years).getResultList();
 	}
 
+	public List<Nurse> getNurseNotShot(){
+		return (List<Nurse>)sessionFactory.getCurrentSession()
+				.createQuery("select n from Nurse n EXCEPT select n form Nurse INNER JOIN Shot ON(n.id = s.nurse.id ", Nurse.class)
+				.getResultList();
+	}
+
 	public SupportStaff getSupportStaffById(int id){
 		return (SupportStaff)sessionFactory.getCurrentSession().createQuery("from SupportStaff s where s.id = :id").setParameter("id",id).uniqueResult();
 	}
@@ -154,5 +160,13 @@ public class VaxRepository {
 				.setParameter("dni",dni).uniqueResultOptional();
 	}
 
+ /* SI EXISTIERA LA CLASE AREA, NO SE ME OCURRE SINO COMO SACAR MAXIMO
+
+	public String getLessEmployeesSupportStaffArea(){
+		return (String)sessionFactory.getCurrentSession()
+				.createQuery("select a.nombre from Area a where a.id GROUP BY a.id HAVING COUNT(*) = SELECT max(*) FROM SuportStaff s WHERE (a.id = s.area.id)").uniqueResultOptional();
+	}
+
+*/
 
 }
