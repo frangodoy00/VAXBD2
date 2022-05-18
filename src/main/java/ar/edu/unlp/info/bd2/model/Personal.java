@@ -16,8 +16,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-@Entity(name = "personal")
+@Entity
+@Table(name = "personal")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "personal_type", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Personal {

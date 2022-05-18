@@ -129,7 +129,7 @@ public class VaxRepository {
 
 	public List<Personal> getStaffWithName(String name){
 		return (List<Personal>)sessionFactory.getCurrentSession()
-				.createQuery("select p from Personal p where p.fullName > :name", Personal.class)
+				.createQuery("from Personal p where p.fullName = :name", Personal.class)
 				.setParameter("name",name).getResultList();
 	}
 	
