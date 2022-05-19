@@ -35,7 +35,7 @@ public interface VaxStatisticsService {
 	/**
 	 * @return El area de Support Staff con menor cantidad de empleados
 	 */
-//	String getLessEmployeesSupportStaffArea();
+	String getLessEmployeesSupportStaffArea();
 	
 	/**
 	 * @return Los empleados cuyo fullName contenga <code>name</code>

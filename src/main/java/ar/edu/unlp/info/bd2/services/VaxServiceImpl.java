@@ -248,7 +248,7 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return El area de Support Staff con menor cantidad de empleados
 	 */
-	//public String getLessEmployeesSupportStaffArea(){ return this.repository.getLessEmployeesSupportStaffArea() ;}
+	public String getLessEmployeesSupportStaffArea(){ return this.repository.getLessEmployeesSupportStaffArea() ;}
 
 	/**
 	 * @return Los empleados cuyo fullName contenga <code>name</code>

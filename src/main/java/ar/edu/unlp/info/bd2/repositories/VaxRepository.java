@@ -1,10 +1,7 @@
 package ar.edu.unlp.info.bd2.repositories;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import javax.management.Query;
 import javax.persistence.PersistenceException;
@@ -13,6 +10,7 @@ import javax.transaction.Transaction;
 import ar.edu.unlp.info.bd2.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.annotations.QueryHints;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class VaxRepository {
@@ -117,9 +115,13 @@ public class VaxRepository {
 				.setParameter("years",years).getResultList();
 	}
 
+	public List<Nurse> getNursesWithShots(){
+		return (List<Nurse>)sessionFactory.getCurrentSession()
+				.createQuery("select distinct n.id from Nurse n INNER JOIN Shot s ON(n.id = s.nurse_id").getResultList();
+	}
 	public List<Nurse> getNurseNotShot(){
 		return (List<Nurse>)sessionFactory.getCurrentSession()
-				.createQuery("select n from Nurse n EXCEPT select n form Nurse INNER JOIN Shot ON(n.id = s.nurse.id ", Nurse.class)
+				.createQuery("select n from Nurse n where n.id not in (select distinct n.id from Nurse n INNER JOIN Shot s ON(n.id = s.nurse))", Nurse.class)
 				.getResultList();
 	}
 
@@ -160,13 +162,20 @@ public class VaxRepository {
 				.setParameter("dni",dni).uniqueResultOptional();
 	}
 
- /* SI EXISTIERA LA CLASE AREA, NO SE ME OCURRE SINO COMO SACAR MAXIMO
 
 	public String getLessEmployeesSupportStaffArea(){
-		return (String)sessionFactory.getCurrentSession()
-				.createQuery("select a.nombre from Area a where a.id GROUP BY a.id HAVING COUNT(*) = SELECT max(*) FROM SuportStaff s WHERE (a.id = s.area.id)").uniqueResultOptional();
+		 Iterator queryResult = sessionFactory.getCurrentSession()
+				.createQuery("select s.area, count(*) as cant from SupportStaff s where s.area is not null group by s.area order by cant asc").setMaxResults(1).iterate();
+		 if (queryResult.hasNext()){
+			 /* como la query me devuelve el nombre junto con la cantidad, hago esto para devolver solo el nombre */
+			 Object[] obj = (Object[]) queryResult.next();
+			 String nameArea = (String) obj[0];
+			 return nameArea;
+		 }
+		 /* en caso de no encontrarlo q devolvemos? */
+		 else { return "no existen areas"; }
 	}
 
-*/
+
 
 }
