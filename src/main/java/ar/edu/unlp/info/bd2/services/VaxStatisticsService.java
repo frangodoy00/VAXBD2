@@ -20,11 +20,13 @@ public interface VaxStatisticsService {
 	/**
 	 * @return Una lista con los <code>n</code> centros que más staff tiene
 	 */
+	//CONSULTAR: Detalles de la consulta en el metodo correspondiente de VaxServiceImpl.java
 	List<Centre> getCentresTopNStaff(int n);
 	
 	/**
 	 * @return El centro que más vacunas aplico
 	 */
+	//CONSULTAR: Detalles de la consulta en el metodo correspondiente de VaxServiceImpl.java
 	Centre getTopShotCentre();
 	
 	/**

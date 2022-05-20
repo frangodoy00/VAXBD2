@@ -46,6 +46,17 @@ public class VaxRepository {
 				.setParameter("id",id).uniqueResult();
 	}
 
+	//CONSULTAR:
+	// 		1) Este test directamente esta fallando durante la ejecucion por una NullPointerException
+	//			no se como solucionarla, pero es probable que el problema principal sea la consulta.
+	//			Tube problemas con esta debido a que no estoy seguro de como hacer las subconsultas,
+	//			no se como hacer para separar el resultado de una consulta en una variable y aplicar
+	//			una consulta sobre esta, intente recuperar la cantidad de shots correspondientes a
+	//			cada centro para luego quedarme el centro en el que su total de shots sea
+	//			mayor o igual que la de todos los demas.
+	//			No fue mi primera opcion, tenia varias formas de hacerlo con SQL, pero no logre
+	//			parsear ninguna forma exitosa a HQL, si pueden ver como se puede hacer mejor esta
+	//			Query Genial.
 	public Centre getTopShotCentre(){
 		return (Centre)sessionFactory.getCurrentSession()
 				.createQuery(
@@ -53,7 +64,7 @@ public class VaxRepository {
 								"from Shot as s join s.centre as c " +
 								"group by c.id having count(s) >= all (" +
 									"select count(ss) from Shot as ss join ss.centre as cc group by c.id)"
-							// Alternativa: No se si este ultimo max() funcionara pero por ahora lo dejare asi
+							// Alternativa: No se si el ultimo max() funcione...
 								//"select c " +
 								//"from Shot as s join s.centre as c " +
 								//"group by c.id " +
@@ -62,6 +73,15 @@ public class VaxRepository {
 				.uniqueResult();
 	}
 
+	//CONSULTAR:
+	// 		1) Al ejecutar los tests la consulta devuelve algo, pero parece no ser correcto,
+	//			no se que es lo que esta mal en la consulta.
+	//		2) Actualmente recupera todos los centros ordenados y luego separa los N primeros
+	//			mediante un form sobre la lista java resultante, probablemente no es la mejor
+	//			forma de resolverlo ¿Como podria separar los N primeros desde la consulta HQL?
+	//		Nota: Tuve problemas para hacer las subconsultas, no se como hacer para separar el
+	//			resultado de una consulta en una variable y aplicar una consulta sobre esta,
+	//			Si Pueden dejar anotado mas o menos como es me viene Joya.
 	public List<Centre> getCentresTopNStaff(int n){
 		List<Centre> listAux = (List<Centre>)sessionFactory.getCurrentSession().createQuery(
 						"select c " +
@@ -69,8 +89,6 @@ public class VaxRepository {
 						"group by c.id " +
 						"order by count(st) "
 				, Centre.class).getResultList();
-		// Consultar: No se si esta es la mejor opcion, seria mejor si la propia
-		// query separase los primeros n elementos
 		List<Centre> list = new ArrayList<Centre>();
 		 for (int i=0; i < n; i++) {
 			list.add(listAux.get(i));
