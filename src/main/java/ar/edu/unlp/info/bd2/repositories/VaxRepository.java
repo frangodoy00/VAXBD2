@@ -45,7 +45,7 @@ public class VaxRepository {
 				.createQuery("select c from Centre c where c.id = :id")
 				.setParameter("id",id).uniqueResult();
 	}
-
+/*
 	public Centre getTopShotCentre(){
 		return (Centre)sessionFactory.getCurrentSession()
 				.createQuery(
@@ -61,22 +61,31 @@ public class VaxRepository {
 				)
 				.uniqueResult();
 	}
+*/
+
+
+	public Centre getTopShotCentre(){
+		return (Centre) sessionFactory.getCurrentSession()
+				.createQuery("select s.centre from Shot s group by s.centre order by count(s.centre) desc").setMaxResults(1).uniqueResult();
+
+	}
 
 	public List<Centre> getCentresTopNStaff(int n){
-		List<Centre> listAux = (List<Centre>)sessionFactory.getCurrentSession().createQuery(
+		return (List<Centre>)sessionFactory.getCurrentSession().createQuery(
 						"select c " +
 						"from Centre c join c.staffs as st " +
 						"group by c.id " +
-						"order by count(st) "
-				, Centre.class).getResultList();
+						"order by count(st) desc"
+				, Centre.class).setMaxResults(n).getResultList();
 		// Consultar: No se si esta es la mejor opcion, seria mejor si la propia
 		// query separase los primeros n elementos
-		List<Centre> list = new ArrayList<Centre>();
-		 for (int i=0; i < n; i++) {
-			list.add(listAux.get(i));
-		}
-		 return list;
+	//	List<Centre> list = new ArrayList<Centre>();
+		// for (int i=0; i < n; i++) {
+	//		list.add(listAux.get(i));
+	//	}
+	//	 return list;
 	}
+
 
 	public Patient getPatientById(int id){
 		return (Patient)sessionFactory.getCurrentSession()
@@ -101,7 +110,7 @@ public class VaxRepository {
 	
 	public List<Vaccine> getUnappliedVaccines(){
 		return (List<Vaccine>)sessionFactory.getCurrentSession()
-				.createQuery("select v from Vaccine v EXCEPT select v from Vaccine v INNER JOIN Shot s ON(v.id=s.vaccine.id)", Vaccine.class)
+				.createQuery("select v from Vaccine v where v.id not in (select distinct v.id from Vaccine v INNER JOIN Shot s ON(v.id=s.vaccine))", Vaccine.class)
 				.getResultList();
 	}
 
@@ -115,10 +124,7 @@ public class VaxRepository {
 				.setParameter("years",years).getResultList();
 	}
 
-	public List<Nurse> getNursesWithShots(){
-		return (List<Nurse>)sessionFactory.getCurrentSession()
-				.createQuery("select distinct n.id from Nurse n INNER JOIN Shot s ON(n.id = s.nurse_id").getResultList();
-	}
+
 	public List<Nurse> getNurseNotShot(){
 		return (List<Nurse>)sessionFactory.getCurrentSession()
 				.createQuery("select n from Nurse n where n.id not in (select distinct n.id from Nurse n INNER JOIN Shot s ON(n.id = s.nurse))", Nurse.class)
@@ -131,8 +137,8 @@ public class VaxRepository {
 
 	public List<Personal> getStaffWithName(String name){
 		return (List<Personal>)sessionFactory.getCurrentSession()
-				.createQuery("from Personal p where p.fullName = :name", Personal.class)
-				.setParameter("name",name).getResultList();
+				.createQuery("from Personal p where p.fullName like :name", Personal.class)
+				.setParameter("name","%"+name).getResultList();
 	}
 	
 	public VaccinationSchedule getVaccinationScheduleById(Long id){
