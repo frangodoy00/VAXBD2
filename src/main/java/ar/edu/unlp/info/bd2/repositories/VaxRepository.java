@@ -164,17 +164,10 @@ public class VaxRepository {
 
 
 	public String getLessEmployeesSupportStaffArea(){
-		 Iterator queryResult = sessionFactory.getCurrentSession()
-				.createQuery("select s.area, count(*) as cant from SupportStaff s where s.area is not null group by s.area order by cant asc").setMaxResults(1).iterate();
-		 if (queryResult.hasNext()){
-			 /* como la query me devuelve el nombre junto con la cantidad, hago esto para devolver solo el nombre */
-			 Object[] obj = (Object[]) queryResult.next();
-			 String nameArea = (String) obj[0];
-			 return nameArea;
-		 }
-		 /* en caso de no encontrarlo q devolvemos? */
-		 else { return "no existen areas"; }
+		return (String)sessionFactory.getCurrentSession()
+				.createQuery("select s.area from SupportStaff s where s.area is not null group by s.area order by count(*) asc").setMaxResults(1).uniqueResult();
 	}
+
 
 
 
