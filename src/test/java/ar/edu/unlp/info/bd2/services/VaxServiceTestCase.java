@@ -1,4 +1,4 @@
-/**package ar.edu.unlp.info.bd2.services;
+package ar.edu.unlp.info.bd2.services;
 
 import ar.edu.unlp.info.bd2.config.AppConfig;
 import ar.edu.unlp.info.bd2.config.HibernateConfiguration;
@@ -160,4 +160,3 @@ public class VaxServiceTestCase {
 	}
 	
 }
-*/
