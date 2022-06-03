@@ -45,24 +45,6 @@ public class VaxRepository {
 				.createQuery("select c from Centre c where c.id = :id")
 				.setParameter("id",id).uniqueResult();
 	}
-/*
-	public Centre getTopShotCentre(){
-		return (Centre)sessionFactory.getCurrentSession()
-				.createQuery(
-						"select c " +
-								"from Shot as s join s.centre as c " +
-								"group by c.id having count(s) >= all (" +
-									"select count(ss) from Shot as ss join ss.centre as cc group by c.id)"
-							// Alternativa: No se si este ultimo max() funcionara pero por ahora lo dejare asi
-								//"select c " +
-								//"from Shot as s join s.centre as c " +
-								//"group by c.id " +
-								//"having count(s) = max(count(s))"
-				)
-				.uniqueResult();
-	}
-*/
-
 
 	public Centre getTopShotCentre(){
 		return (Centre) sessionFactory.getCurrentSession()
@@ -77,13 +59,6 @@ public class VaxRepository {
 						"group by c.id " +
 						"order by count(st) desc"
 				, Centre.class).setMaxResults(n).getResultList();
-		// Consultar: No se si esta es la mejor opcion, seria mejor si la propia
-		// query separase los primeros n elementos
-	//	List<Centre> list = new ArrayList<Centre>();
-		// for (int i=0; i < n; i++) {
-	//		list.add(listAux.get(i));
-	//	}
-	//	 return list;
 	}
 
 
