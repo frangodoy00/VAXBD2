@@ -1,5 +1,7 @@
 package ar.edu.unlp.info.bd2.model;
 
+import org.hibernate.annotations.ListIndexBase;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,6 +25,8 @@ public class VaccinationSchedule {
             joinColumns = {@JoinColumn(name = "vaccinationschedule_id")},
             inverseJoinColumns = {@JoinColumn(name = "vaccine_id")}
     )
+    // @OrderBy("uuidColumn")
+    @ListIndexBase
     private List<Vaccine> vaccines;
 
     public VaccinationSchedule(){
