@@ -25,8 +25,8 @@ public class VaccinationSchedule {
             joinColumns = {@JoinColumn(name = "vaccinationschedule_id")},
             inverseJoinColumns = {@JoinColumn(name = "vaccine_id")}
     )
-    // @OrderBy("uuidColumn")
-    @OrderColumn //Preguntar
+    
+    @OrderColumn 
     private List<Vaccine> vaccines;
 
     public VaccinationSchedule(){
