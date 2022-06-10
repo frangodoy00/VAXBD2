@@ -152,7 +152,7 @@ public class VaxServiceImpl implements VaxService{
 	 * @param email email del usuario
 	 * @return
 	 */
-    @Transactional
+    
     public Optional<Patient> getPatientByEmail(String email){
 		return this.repository.getPatientByEmail(email);
 	}
@@ -162,7 +162,7 @@ public class VaxServiceImpl implements VaxService{
 	 * @param name nombre de la vacuna
 	 * @return
 	 */
-    @Transactional
+    
     public Optional<Vaccine> getVaccineByName(String name){
 		return this.repository.getVaccineByName(name);
 	}
@@ -171,12 +171,12 @@ public class VaxServiceImpl implements VaxService{
 	 * @param id el id del esquema
 	 * @return el esquema de vacunación
 	 * */
-    @Transactional
+    
     public VaccinationSchedule getVaccinationScheduleById(Long id){
 		return this.repository.getVaccinationScheduleById(id);
 	}
     
-    @Transactional
+    
 	public VaccinationSchedule getVaccinationScheduleById(int id){
 		return this.repository.getVaccinationScheduleById(id);
 	}
@@ -185,7 +185,7 @@ public class VaxServiceImpl implements VaxService{
 	 * @param name el nombre del centro a buscar
 	 * @return el centro
 	 * */
-    @Transactional
+    
     public Optional<Centre> getCentreByName(String name) throws VaxException{
 		return this.repository.getCentreByName(name);
 	}
@@ -194,7 +194,7 @@ public class VaxServiceImpl implements VaxService{
 	 * @param dni el dni del SupportStaff a buscar
 	 * @return el SupportStaff
 	 * */
-    @Transactional
+    
     public Optional<SupportStaff> getSupportStaffByDni(String dni){
 		return this.repository.getSupportStaffByDni(dni);
 	}
@@ -233,7 +233,7 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Una lista con todos los pacientes
 	 */
-    @Transactional
+    
     public List<Patient> getAllPatients() {
 		return this.repository.getAllPatients();
 	}
@@ -241,7 +241,7 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Una lista con todos los enfermeros que tengan más de <code>years</code> años de experiencia
 	 */
-    @Transactional
+    
     public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){
 		return this.repository.getNurseWithMoreThanNYearsExperience(years);
 	}
@@ -249,7 +249,7 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Una lista con los <code>n</code> centros que más staff tiene
 	 */
-    @Transactional
+    
     public List<Centre> getCentresTopNStaff(int n){
 		return this.repository.getCentresTopNStaff(n);
 	}
@@ -258,7 +258,7 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return El centro que más vacunas aplico
 	 */
-    @Transactional
+    
     public Centre getTopShotCentre(){
 		return this.repository.getTopShotCentre();
 	}
@@ -266,19 +266,19 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Una lista de los enfermeros que no aplicaron vacunas
 	 */
-    @Transactional
+    
     public List<Nurse> getNurseNotShot() { return this.repository.getNurseNotShot(); }
 
 	/**
 	 * @return El area de Support Staff con menor cantidad de empleados
 	 */
-    @Transactional
+    
     public String getLessEmployeesSupportStaffArea(){ return this.repository.getLessEmployeesSupportStaffArea() ;}
 
 	/**
 	 * @return Los empleados cuyo fullName contenga <code>name</code>
 	 */
-    @Transactional
+    
     public List<Personal> getStaffWithName(String name){
 		return this.repository.getStaffWithName(name);
 	}
@@ -286,7 +286,7 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Una lista de las vacunas de las que no se aplicaron dosis
 	 */
-    @Transactional
+    
     public List<Vaccine> getUnappliedVaccines(){
 		return this.repository.getUnappliedVaccines();
 	}
@@ -294,7 +294,7 @@ public class VaxServiceImpl implements VaxService{
 	/**
 	 * @return Una lista de los certificados emitidos en un rango de fechas
 	 */
-    @Transactional
+    
     public List <ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate){
 		return this.repository.getShotCertificatesBetweenDates(startDate, endDate);
 	}
