@@ -57,14 +57,6 @@ public interface VaxService extends VaxStatisticsService{
 
 	/**
 	 *
-	 * @param id del Vaccination Schedule
-	 * @return el Vaccination Schedule
-	 * @throws VaxException
-	 */
-	VaccinationSchedule getVaccinationScheduleById(int id);
-	
-	/**
-	 *
 	 * @param name nombre del centro de vacunación
 	 * @return el centro de vacunación nuevo
 	 * @throws VaxException
@@ -119,13 +111,20 @@ public interface VaxService extends VaxStatisticsService{
 	 * @return el centre
 	 * @throws VaxException 
 	 */
-	Centre updateCentre(Centre centre) throws VaxException;
+	Centre updateCentre(Centre centre);
 
 	/**
 	 * @param dni el dni del SupportStaff a buscar
 	 * @return el SupportStaff
 	 * */
 	Optional<SupportStaff> getSupportStaffByDni(String dni);
+	
+	/**
+	 * 
+	 * @param schedule
+	 * @return el VaccinationSchedule actualizado.
+	 */
+	VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule);
 
-	VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule) throws VaxException;
+	
 }

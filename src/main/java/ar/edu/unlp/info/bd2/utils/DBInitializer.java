@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.SimpleDateFormat;
 
-import javax.transaction.Transactional;
-@Transactional
 public class DBInitializer {
 
     @Autowired
@@ -15,17 +13,17 @@ public class DBInitializer {
 
     public void prepareDB() throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        
-        Vaccine vaccine001 = this.service.createVaccine("Pfizer");
-        Vaccine vaccine002 = this.service.createVaccine("Moderna");
-        Vaccine vaccine003 = this.service.createVaccine("Sinopharm");
-        Vaccine vaccine004 = this.service.createVaccine("Bharat");
-        Vaccine vaccine005 = this.service.createVaccine("Janssen");
-        Vaccine vaccine006 = this.service.createVaccine("Sinopharm 2");
-        Vaccine vaccine007 = this.service.createVaccine("Sinovac");
-        Vaccine vaccine008 = this.service.createVaccine("AztraZeneca");
+
+        Vaccine vaccine001 = service.createVaccine("Pfizer");
+        Vaccine vaccine002 = service.createVaccine("Moderna");
+        Vaccine vaccine003 = service.createVaccine("Sinopharm");
+        Vaccine vaccine004 = service.createVaccine("Bharat");
+        Vaccine vaccine005 = service.createVaccine("Janssen");
+        Vaccine vaccine006 = service.createVaccine("Sinopharm 2");
+        Vaccine vaccine007 = service.createVaccine("Sinovac");
+        Vaccine vaccine008 = service.createVaccine("AztraZeneca");
         VaccinationSchedule schedule001 = service.createVaccinationSchedule();
-     	schedule001.addVaccine(vaccine005);
+        schedule001.addVaccine(vaccine005);
         schedule001.addVaccine(vaccine005);
         schedule001.addVaccine(vaccine005);
         service.updateVaccinationSchedule(schedule001);
@@ -123,7 +121,7 @@ public class DBInitializer {
         schedule020.addVaccine(vaccine003);
         schedule020.addVaccine(vaccine003);
         schedule020.addVaccine(vaccine007);
-        service.updateVaccinationSchedule(schedule020);  
+        service.updateVaccinationSchedule(schedule020);
         Centre centre001 = service.createCentre("SUTEBA");
         Centre centre002 = service.createCentre("Hospital de Romero");
         Centre centre003 = service.createCentre("Polideportivo de Los Hornos");
@@ -494,6 +492,19 @@ public class DBInitializer {
         centre004.addStaff(supportstaff079);
         SupportStaff supportstaff080 = service.createSupportStaff("224845167", "Polion Muñoz", "Orientacion");
         centre002.addStaff(supportstaff080);
+        this.service.updateCentre(centre013);
+        this.service.updateCentre(centre012);
+        this.service.updateCentre(centre011);
+        this.service.updateCentre(centre010);
+        this.service.updateCentre(centre009);
+        this.service.updateCentre(centre008);
+        this.service.updateCentre(centre007);
+        this.service.updateCentre(centre006);
+        this.service.updateCentre(centre005);
+        this.service.updateCentre(centre004);
+        this.service.updateCentre(centre003);
+        this.service.updateCentre(centre002);
+        this.service.updateCentre(centre001);
         Patient patient001 = service.createPatient("evonnerodrguez217@me.com", "Evonne Rodríguez", "gmn,aadoio1410", sdf.parse("27/12/1941"));
         this.service.createShot(patient001,vaccine003,sdf.parse("25/6/2020"),centre013,nurse049);
         Patient patient002 = service.createPatient("laylasnchez329@gmail.com", "Layla Sánchez", "aasmsus.isr3586", sdf.parse("2/9/1992"));
@@ -1450,6 +1461,5 @@ public class DBInitializer {
         Patient patient322 = service.createPatient("hanancarrasco742@fruit.net", "Hanan Carrasco", "idooac2801", sdf.parse("7/5/1994"));
         this.service.createShot(patient322,vaccine002,sdf.parse("24/4/2020"),centre009,nurse022);
         this.service.createShot(patient322,vaccine002,sdf.parse("4/7/2020"),centre009,nurse022);
-    
     }
 }
