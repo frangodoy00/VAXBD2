@@ -125,6 +125,8 @@ public interface VaxService extends VaxStatisticsService{
 	 * @return el VaccinationSchedule actualizado.
 	 */
 	VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule);
+	
+	VaccinationSchedule getVaccinationScheduleById(int id);
 
 	
 }

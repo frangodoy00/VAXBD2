@@ -105,7 +105,7 @@ public class VaxStatisticsTestCase {
     
     @Test
     public void testGetStaffWithName() {
-    	List<Staff> staffs = this.service.getStaffWithName("Hernández");
+    	List<Personal> staffs = this.service.getStaffWithName("Hernández");
     	assertEquals(3,staffs.size());
     	this.assertListEquality(staffs.stream().map(property -> property.getFullName()).collect(Collectors.toList()), Arrays.asList("Ceasar Hernández","Kasim Hernández","Modesty Hernández"));
     }

@@ -217,14 +217,14 @@ public class VaxServiceImpl implements VaxService{
 	 * @throws VaxException 
 	 */
     @Transactional
-    public Centre updateCentre(Centre centre) throws VaxException{
+    public Centre updateCentre(Centre centre){
 		int id = this.repository.save(centre);
         Centre c = this.repository.getCentreById(id);
         return c;
 	}
 
     @Transactional
-    public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule) throws VaxException{
+    public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule){
 		int id = this.repository.save(schedule);
 		VaccinationSchedule s = this.repository.getVaccinationScheduleById(id);
 		return s;
