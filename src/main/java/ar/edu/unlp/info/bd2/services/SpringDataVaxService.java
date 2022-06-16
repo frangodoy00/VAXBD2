@@ -1,6 +1,7 @@
 package ar.edu.unlp.info.bd2.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import ar.edu.unlp.info.bd2.model.Centre;
 import ar.edu.unlp.info.bd2.model.Nurse;
 import ar.edu.unlp.info.bd2.model.Patient;
+import ar.edu.unlp.info.bd2.model.Personal;
 import ar.edu.unlp.info.bd2.model.Shot;
 import ar.edu.unlp.info.bd2.model.SupportStaff;
 import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
@@ -15,12 +17,24 @@ import ar.edu.unlp.info.bd2.model.Vaccine;
 import ar.edu.unlp.info.bd2.repositories.VaxException;
 import ar.edu.unlp.info.bd2.repositories.VaxRepository;
 import ar.edu.unlp.info.bd2.repositories.CentreRepository;
+import ar.edu.unlp.info.bd2.repositories.NurseRepository;
+import ar.edu.unlp.info.bd2.repositories.PersonalRepository;
+import ar.edu.unlp.info.bd2.repositories.SupportStaffRepository;
 
 public class SpringDataVaxService implements VaxService{
 
 	CentreRepository centreRepository;
+	SupportStaffRepository supportStaffRepository;
+	NurseRepository nurseRepository;
+	PersonalRepository personalRepository;
 	
-	public SpringDataVaxService(CentreRepository repository) {this.centreRepository = repository;}
+	
+	public SpringDataVaxService(CentreRepository centreRepository, SupportStaffRepository supportStaffRepository, 
+			NurseRepository nurseRepository, PersonalRepository personalRepository){
+		this.centreRepository = centreRepository;
+		this.nurseRepository = nurseRepository;
+		this.supportStaffRepository = supportStaffRepository;
+		this.personalRepository = personalRepository;}
 	
 	/**
 		 *
@@ -134,7 +148,9 @@ public class SpringDataVaxService implements VaxService{
 		 * @param dni el dni del SupportStaff a buscar
 		 * @return el SupportStaff
 		 * */
-		Optional<SupportStaff> getSupportStaffByDni(String dni);
+		public Optional<SupportStaff> getSupportStaffByDni(String dni){
+			return supportStaffRepository.getSupportStaffByDni(dni);
+		}
 		
 		/**
 		 * 
@@ -145,4 +161,15 @@ public class SpringDataVaxService implements VaxService{
 		
 		VaccinationSchedule getVaccinationScheduleById(int id);
 	
+		public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){
+			return this.nurseRepository.getNurseWithMoreThanNYearsExperience(years);
+		}
+		
+		public List<Nurse> getNurseNotShot() { return this.nurseRepository.getNurseNotShot(); }
+		
+		public String getLessEmployeesSupportStaffArea(){ return this.supportStaffRepository.getLessEmployeesSupportStaffArea();}
+
+		public List<Personal> getStaffWithName(String name){
+			return this.personalRepository.getStaffWithName(name);
+		}
 }
