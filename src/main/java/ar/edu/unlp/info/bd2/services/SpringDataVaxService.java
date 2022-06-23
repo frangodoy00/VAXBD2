@@ -20,6 +20,7 @@ import ar.edu.unlp.info.bd2.repositories.CentreRepository;
 import ar.edu.unlp.info.bd2.repositories.NurseRepository;
 import ar.edu.unlp.info.bd2.repositories.PersonalRepository;
 import ar.edu.unlp.info.bd2.repositories.SupportStaffRepository;
+import ar.edu.unlp.info.bd2.repositories.VaccineRepository;
 
 public class SpringDataVaxService implements VaxService{
 
@@ -27,15 +28,23 @@ public class SpringDataVaxService implements VaxService{
 	SupportStaffRepository supportStaffRepository;
 	NurseRepository nurseRepository;
 	PersonalRepository personalRepository;
+	VaccineRepository vaccineRepository;
 	
 	
 	public SpringDataVaxService(CentreRepository centreRepository, SupportStaffRepository supportStaffRepository, 
-			NurseRepository nurseRepository, PersonalRepository personalRepository){
+			NurseRepository nurseRepository, PersonalRepository personalRepository, VaccineRepository vaccineRepository){
 		this.centreRepository = centreRepository;
 		this.nurseRepository = nurseRepository;
 		this.supportStaffRepository = supportStaffRepository;
-		this.personalRepository = personalRepository;}
-	
+		this.personalRepository = personalRepository;
+		this.vaccineRepository = vaccineRepository;
+	}
+
+	/**Cree este constructoor vacio por que sino me tira error en SpringDataConfiguration**/
+	public SpringDataVaxService() {
+
+	}
+
 	/**
 		 *
 		 * @param email email del usuario con el cual ingresa al sitio
@@ -81,7 +90,9 @@ public class SpringDataVaxService implements VaxService{
 		 * @param name nombre de la vacuna
 		 * @return
 		 */
-		Optional<Vaccine> getVaccineByName(String name);
+		public Optional<Vaccine> getVaccineByName(String name){
+			return this.vaccineRepository.getVaccineByName(name);
+		}
 
 		/**
 		 *
