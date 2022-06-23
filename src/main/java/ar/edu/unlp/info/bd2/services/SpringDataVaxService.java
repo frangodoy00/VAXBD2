@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import ar.edu.unlp.info.bd2.repositories.*;
 import org.springframework.data.jpa.repository.Query;
 
 import ar.edu.unlp.info.bd2.model.Centre;
@@ -14,14 +15,6 @@ import ar.edu.unlp.info.bd2.model.Shot;
 import ar.edu.unlp.info.bd2.model.SupportStaff;
 import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
 import ar.edu.unlp.info.bd2.model.Vaccine;
-import ar.edu.unlp.info.bd2.repositories.VaxException;
-import ar.edu.unlp.info.bd2.repositories.VaxRepository;
-import ar.edu.unlp.info.bd2.repositories.CentreRepository;
-import ar.edu.unlp.info.bd2.repositories.NurseRepository;
-import ar.edu.unlp.info.bd2.repositories.PersonalRepository;
-import ar.edu.unlp.info.bd2.repositories.SupportStaffRepository;
-import ar.edu.unlp.info.bd2.repositories.VaccineRepository;
-import ar.edu.unlp.info.bd2.repositories.VaccionationScheduleRepository;
 
 public class SpringDataVaxService implements VaxService{
 
@@ -31,6 +24,7 @@ public class SpringDataVaxService implements VaxService{
 	PersonalRepository personalRepository;
 	VaccineRepository vaccineRepository;
 	VaccionationScheduleRepository vaccionationScheduleRepository;
+	ShotCertificateRepository shotCertificateRepository;
 	
 	
 	public SpringDataVaxService(CentreRepository centreRepository, SupportStaffRepository supportStaffRepository,
@@ -164,7 +158,9 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el centre
 		 * @throws VaxException 
 		 */
-		Centre updateCentre(Centre centre);
+		public Centre updateCentre(Centre centre){
+			this.centreRepository.updateCentre(centre);
+		}
 
 		/**
 		 * @param dni el dni del SupportStaff a buscar

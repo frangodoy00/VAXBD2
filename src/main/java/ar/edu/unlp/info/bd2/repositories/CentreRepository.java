@@ -9,5 +9,6 @@ public interface CentreRepository extends CrudRepository <Centre, Integer> {
 
 	public Centre getCentreById(int id);
 	public Optional<Centre>getCentreByName(String name);
+	public Centre updateCentre(Centre centre);
 
 }
