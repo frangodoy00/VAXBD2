@@ -117,8 +117,19 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el enfermero creado
 		 * @throws VaxException
 		 */
-		Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException;
+		public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException{
+			if ( this.getNurseByDni(dni).isPresent()){
+				VaxException exception = new VaxException("Constraint Violation");
+				throw exception;
+			}
+			return nurseRepository.save(new Nurse(fullName,dni,experience));
+		}
 
+		private Optional<Nurse> getNurseByDni(String dni) {
+			Pageable pageable = PageRequest.of(1,1);
+			return this.nurseRepository.getNurseByDni(dni, pageable);
+		}
+		
 		/**
 		* @param dni el dni
 		* @param fullName nombre completo
@@ -126,7 +137,22 @@ public class SpringDataVaxService implements VaxService{
 		* @return el personal de apoyo creado
 		* @throws VaxException
 		* */
-		SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException;
+		public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException{
+			if ( this.getSupportStaffByDni(dni).isPresent()){
+				VaxException exception = new VaxException("Constraint Violation");
+				throw exception;
+			}
+			return supportStaffRepository.save(new SupportStaff(dni,fullName,area));
+		}
+
+		/**
+		 * @param dni el dni del SupportStaff a buscar
+		 * @return el SupportStaff
+		 * */
+		public Optional<SupportStaff> getSupportStaffByDni(String dni){
+			Pageable pageable = PageRequest.of(1,1);
+			return this.supportStaffRepository.getSupportStaffByDni(dni, pageable);
+		}
 
 		/**
 		 * @return el esquema nueva vacío
@@ -159,7 +185,9 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el staff
 		 * @throws VaxException 
 		 */
-		SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException;
+		public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException{
+			return this.supportStaffRepository.save(staff);
+		}
 
 		/**
 		 * @param centre el centre a actualizar
@@ -168,14 +196,6 @@ public class SpringDataVaxService implements VaxService{
 		 */
 		public Centre updateCentre(Centre centre){
 			this.centreRepository.updateCentre(centre);
-		}
-
-		/**
-		 * @param dni el dni del SupportStaff a buscar
-		 * @return el SupportStaff
-		 * */
-		public Optional<SupportStaff> getSupportStaffByDni(String dni){
-			return this.supportStaffRepository.getSupportStaffByDni(dni);
 		}
 		
 		/**
@@ -200,7 +220,8 @@ public class SpringDataVaxService implements VaxService{
 		}
 		
 		public String getLessEmployeesSupportStaffArea(){
-			return this.supportStaffRepository.getLessEmployeesSupportStaffArea();
+			Pageable pageable = PageRequest.of(1,1);
+			return this.supportStaffRepository.getLessEmployeesSupportStaffArea(pageable);
 		}
 
 		public List<Personal> getStaffWithName(String name){

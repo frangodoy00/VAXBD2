@@ -2,13 +2,23 @@ package ar.edu.unlp.info.bd2.repositories;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
+import ar.edu.unlp.info.bd2.model.Centre;
+import ar.edu.unlp.info.bd2.model.Nurse;
 import ar.edu.unlp.info.bd2.model.SupportStaff;
 
 public interface SupportStaffRepository extends CrudRepository <SupportStaff, Integer>{
 		
-	public SupportStaff getSupportStaffById(int id);
-	public Optional<SupportStaff> getSupportStaffByDni(String dni);
-	public String getLessEmployeesSupportStaffArea();
+	@Query("select s from SupportStaff s where s.id = :id")
+	public SupportStaff getSupportStaffById(@Param("id") int id, Pageable pageable);
+	
+	@Query("select s from SupportStaff s where s.dni = :dni")
+	public Optional<SupportStaff> getSupportStaffByDni(@Param("dni") String dni, Pageable pageable);
+	
+	@Query("select s.area from SupportStaff s where s.area is not null group by s.area order by count(*) asc")
+	public String getLessEmployeesSupportStaffArea(Pageable pageable);
 }
