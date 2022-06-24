@@ -5,7 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import ar.edu.unlp.info.bd2.repositories.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.info.bd2.model.Centre;
 import ar.edu.unlp.info.bd2.model.Nurse;
@@ -18,26 +23,21 @@ import ar.edu.unlp.info.bd2.model.Vaccine;
 
 public class SpringDataVaxService implements VaxService{
 
+	@Autowired
 	CentreRepository centreRepository;
+	@Autowired
 	SupportStaffRepository supportStaffRepository;
+	@Autowired
 	NurseRepository nurseRepository;
+	@Autowired
 	PersonalRepository personalRepository;
+	@Autowired
 	VaccineRepository vaccineRepository;
+	@Autowired
 	VaccionationScheduleRepository vaccionationScheduleRepository;
+	@Autowired
 	ShotCertificateRepository shotCertificateRepository;
 	
-	
-	public SpringDataVaxService(CentreRepository centreRepository, SupportStaffRepository supportStaffRepository,
-								NurseRepository nurseRepository, PersonalRepository personalRepository,
-								VaccineRepository vaccineRepository,
-								VaccionationScheduleRepository vaccionationScheduleRepository){
-		this.centreRepository = centreRepository;
-		this.nurseRepository = nurseRepository;
-		this.supportStaffRepository = supportStaffRepository;
-		this.personalRepository = personalRepository;
-		this.vaccineRepository = vaccineRepository;
-		this.vaccionationScheduleRepository = vaccionationScheduleRepository;
-	}
 
 	/**Cree este constructoor vacio por que sino me tira error en SpringDataConfiguration**/
 	public SpringDataVaxService() {
@@ -101,7 +101,14 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el centro de vacunación nuevo
 		 * @throws VaxException
 		 */
-		Centre createCentre(String name) throws VaxException;
+		@Transactional
+		public Centre createCentre(String name) throws VaxException{
+			if ( this.getCentreByName(name).isPresent()){
+				VaxException exception = new VaxException("Constraint Violation");
+				throw exception;
+			}
+			return centreRepository.save(new Centre(name));
+		}
 
 		/**
 		 * @param dni el dni
@@ -143,7 +150,8 @@ public class SpringDataVaxService implements VaxService{
 		 * */
 		@Query
 		public Optional<Centre> getCentreByName(String name) throws VaxException{
-			return this.centreRepository.getCentreByName(name);
+			Pageable pageable = PageRequest.of(1,1);
+			return this.centreRepository.getCentreByName(name, pageable);
 		}
 
 		/**
