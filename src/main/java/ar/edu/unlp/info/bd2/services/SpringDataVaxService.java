@@ -20,6 +20,8 @@ import ar.edu.unlp.info.bd2.repositories.CentreRepository;
 import ar.edu.unlp.info.bd2.repositories.NurseRepository;
 import ar.edu.unlp.info.bd2.repositories.PersonalRepository;
 import ar.edu.unlp.info.bd2.repositories.SupportStaffRepository;
+import ar.edu.unlp.info.bd2.repositories.ShotRepository;
+import ar.edu.unlp.info.bd2.repositories.PatientRepository;
 
 public class SpringDataVaxService implements VaxService{
 
@@ -27,14 +29,21 @@ public class SpringDataVaxService implements VaxService{
 	SupportStaffRepository supportStaffRepository;
 	NurseRepository nurseRepository;
 	PersonalRepository personalRepository;
+
+	ShotRepository shotRepository;
+
+	PatientRepository patientRepository;
 	
 	
 	public SpringDataVaxService(CentreRepository centreRepository, SupportStaffRepository supportStaffRepository, 
-			NurseRepository nurseRepository, PersonalRepository personalRepository){
+			NurseRepository nurseRepository, PersonalRepository personalRepository, ShotRepository shotRepository,PatientRepository patientRepository){
 		this.centreRepository = centreRepository;
 		this.nurseRepository = nurseRepository;
 		this.supportStaffRepository = supportStaffRepository;
-		this.personalRepository = personalRepository;}
+		this.personalRepository = personalRepository;
+		this.shotRepository = shotRepository;
+		this.patientRepository = patientRepository;
+	}
 	
 	/**
 		 *
@@ -73,7 +82,12 @@ public class SpringDataVaxService implements VaxService{
 		 * @param email email del usuario
 		 * @return
 		 */
-		Optional<Patient> getPatientByEmail(String email);
+
+
+
+		public Optional<Patient> getPatientByEmail(String email){
+			return patientRepository.getPatientByEmail(email);
+		}
 
 
 		/**
@@ -142,7 +156,9 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el centre
 		 * @throws VaxException 
 		 */
+
 		Centre updateCentre(Centre centre);
+
 
 		/**
 		 * @param dni el dni del SupportStaff a buscar
