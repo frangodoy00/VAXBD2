@@ -61,8 +61,13 @@ public class SpringDataVaxService implements VaxService{
 		 * @return la vacuna creada
 		 * @throws VaxException
 		 */
+		@Transactional
 		public Vaccine createVaccine(String name) throws VaxException{
-			return vaccineRepository.createVaccine(name);
+			if ( this.getVaccineByName(name).isPresent()){
+				VaxException exception = new VaxException("Constraint Violation");
+				throw exception;
+			}
+			return vaccineRepository.save(new Vaccine(name));
 		}
 
 		/**
@@ -92,7 +97,8 @@ public class SpringDataVaxService implements VaxService{
 		 * @return
 		 */
 		public Optional<Vaccine> getVaccineByName(String name){
-			return this.vaccineRepository.getVaccineByName(name);
+			Pageable pageable = PageRequest.of(1,1);
+			return this.vaccineRepository.getVaccineByName(name, pageable);
 		}
 
 		/**
@@ -158,8 +164,9 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el esquema nueva vacío
 		 * @throws VaxException
 		 * */
+		@Transactional
 		public VaccinationSchedule createVaccinationSchedule() throws VaxException{
-			return this.vaccionationScheduleRepository.createVaccinationSchedule();
+			return this.vaccionationScheduleRepository.save(new VaccinationSchedule());
 		}
 
 		/**
@@ -167,7 +174,8 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el esquema de vacunación
 		 * */
 		public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException{
-			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id);
+			Pageable pageable = PageRequest.of(1,1);
+			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable);
 		}
 
 		/**
@@ -194,8 +202,9 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el centre
 		 * @throws VaxException 
 		 */
+		@Transactional
 		public Centre updateCentre(Centre centre){
-			this.centreRepository.updateCentre(centre);
+			return this.centreRepository.updateCentre(centre);
 		}
 		
 		/**
@@ -203,12 +212,15 @@ public class SpringDataVaxService implements VaxService{
 		 * @param schedule
 		 * @return el VaccinationSchedule actualizado.
 		 */
+		@Transactional
 		public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule){
-			return this.vaccionationScheduleRepository.updateVaccinationSchedule(schedule);
+			return this.vaccionationScheduleRepository.save(schedule);
+			//return this.vaccionationScheduleRepository.updateVaccinationSchedule(schedule);
 		}
 		
 		public VaccinationSchedule getVaccinationScheduleById(int id){
-			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id);
+			Pageable pageable = PageRequest.of(1,1);
+			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable);
 		}
 	
 		public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){

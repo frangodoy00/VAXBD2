@@ -2,14 +2,17 @@ package ar.edu.unlp.info.bd2.repositories;
 
 import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
 import ar.edu.unlp.info.bd2.model.Vaccine;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
 public interface VaccionationScheduleRepository
         extends CrudRepository<VaccinationSchedule, Integer> {
-    public VaccinationSchedule createVaccinationSchedule() throws VaxException;
-    public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule);
-    public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException;
-    public VaccinationSchedule getVaccinationScheduleById(int id);
+    @Query("from VaccinationSchedule v where v.id = :id")
+    public VaccinationSchedule getVaccinationScheduleById(@Param("id") Long id, Pageable pageable) throws VaxException;
+    @Query("from VaccinationSchedule v where v.id = :id")
+    public VaccinationSchedule getVaccinationScheduleById(@Param("id") int id, Pageable pageable);
 }
