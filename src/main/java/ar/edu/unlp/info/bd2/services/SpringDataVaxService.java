@@ -217,7 +217,8 @@ public class SpringDataVaxService implements VaxService{
 		 */
 		@Transactional
 		public Centre updateCentre(Centre centre){
-			return this.centreRepository.updateCentre(centre);
+			return this.centreRepository.save(centre);
+			// return this.centreRepository.updateCentre(centre);
 		}
 		
 		/**
