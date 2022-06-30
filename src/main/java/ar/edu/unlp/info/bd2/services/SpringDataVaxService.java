@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import ar.edu.unlp.info.bd2.repositories.*;
 import org.springframework.data.jpa.repository.Query;
 
 import ar.edu.unlp.info.bd2.model.Centre;
@@ -14,14 +15,6 @@ import ar.edu.unlp.info.bd2.model.Shot;
 import ar.edu.unlp.info.bd2.model.SupportStaff;
 import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
 import ar.edu.unlp.info.bd2.model.Vaccine;
-import ar.edu.unlp.info.bd2.repositories.VaxException;
-import ar.edu.unlp.info.bd2.repositories.VaxRepository;
-import ar.edu.unlp.info.bd2.repositories.CentreRepository;
-import ar.edu.unlp.info.bd2.repositories.NurseRepository;
-import ar.edu.unlp.info.bd2.repositories.PersonalRepository;
-import ar.edu.unlp.info.bd2.repositories.SupportStaffRepository;
-import ar.edu.unlp.info.bd2.repositories.ShotRepository;
-import ar.edu.unlp.info.bd2.repositories.PatientRepository;
 
 public class SpringDataVaxService implements VaxService{
 
@@ -29,22 +22,28 @@ public class SpringDataVaxService implements VaxService{
 	SupportStaffRepository supportStaffRepository;
 	NurseRepository nurseRepository;
 	PersonalRepository personalRepository;
-
-	ShotRepository shotRepository;
-
-	PatientRepository patientRepository;
+	VaccineRepository vaccineRepository;
+	VaccionationScheduleRepository vaccionationScheduleRepository;
+	ShotCertificateRepository shotCertificateRepository;
 	
 	
-	public SpringDataVaxService(CentreRepository centreRepository, SupportStaffRepository supportStaffRepository, 
-			NurseRepository nurseRepository, PersonalRepository personalRepository, ShotRepository shotRepository,PatientRepository patientRepository){
+	public SpringDataVaxService(CentreRepository centreRepository, SupportStaffRepository supportStaffRepository,
+								NurseRepository nurseRepository, PersonalRepository personalRepository,
+								VaccineRepository vaccineRepository,
+								VaccionationScheduleRepository vaccionationScheduleRepository){
 		this.centreRepository = centreRepository;
 		this.nurseRepository = nurseRepository;
 		this.supportStaffRepository = supportStaffRepository;
 		this.personalRepository = personalRepository;
-		this.shotRepository = shotRepository;
-		this.patientRepository = patientRepository;
+		this.vaccineRepository = vaccineRepository;
+		this.vaccionationScheduleRepository = vaccionationScheduleRepository;
 	}
-	
+
+	/**Cree este constructoor vacio por que sino me tira error en SpringDataConfiguration**/
+	public SpringDataVaxService() {
+
+	}
+
 	/**
 		 *
 		 * @param email email del usuario con el cual ingresa al sitio
@@ -62,7 +61,9 @@ public class SpringDataVaxService implements VaxService{
 		 * @return la vacuna creada
 		 * @throws VaxException
 		 */
-		Vaccine createVaccine(String name) throws VaxException;
+		public Vaccine createVaccine(String name) throws VaxException{
+			return vaccineRepository.createVaccine(name);
+		}
 
 		/**
 		 *
@@ -82,12 +83,7 @@ public class SpringDataVaxService implements VaxService{
 		 * @param email email del usuario
 		 * @return
 		 */
-
-
-
-		public Optional<Patient> getPatientByEmail(String email){
-			return patientRepository.getPatientByEmail(email);
-		}
+		Optional<Patient> getPatientByEmail(String email);
 
 
 		/**
@@ -95,7 +91,9 @@ public class SpringDataVaxService implements VaxService{
 		 * @param name nombre de la vacuna
 		 * @return
 		 */
-		Optional<Vaccine> getVaccineByName(String name);
+		public Optional<Vaccine> getVaccineByName(String name){
+			return this.vaccineRepository.getVaccineByName(name);
+		}
 
 		/**
 		 *
@@ -127,13 +125,17 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el esquema nueva vacío
 		 * @throws VaxException
 		 * */
-		VaccinationSchedule createVaccinationSchedule() throws VaxException;
+		public VaccinationSchedule createVaccinationSchedule() throws VaxException{
+			return this.vaccionationScheduleRepository.createVaccinationSchedule();
+		}
 
 		/**
 		 * @param id el id del esquema
 		 * @return el esquema de vacunación
 		 * */
-		VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException;
+		public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException{
+			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id);
+		}
 
 		/**
 		 * @param name el nombre del centro a buscar
@@ -141,7 +143,7 @@ public class SpringDataVaxService implements VaxService{
 		 * */
 		@Query
 		public Optional<Centre> getCentreByName(String name) throws VaxException{
-			return centreRepository.getCentreByName(name);
+			return this.centreRepository.getCentreByName(name);
 		}
 
 		/**
@@ -156,16 +158,16 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el centre
 		 * @throws VaxException 
 		 */
-
-		Centre updateCentre(Centre centre);
-
+		public Centre updateCentre(Centre centre){
+			this.centreRepository.updateCentre(centre);
+		}
 
 		/**
 		 * @param dni el dni del SupportStaff a buscar
 		 * @return el SupportStaff
 		 * */
 		public Optional<SupportStaff> getSupportStaffByDni(String dni){
-			return supportStaffRepository.getSupportStaffByDni(dni);
+			return this.supportStaffRepository.getSupportStaffByDni(dni);
 		}
 		
 		/**
@@ -173,17 +175,25 @@ public class SpringDataVaxService implements VaxService{
 		 * @param schedule
 		 * @return el VaccinationSchedule actualizado.
 		 */
-		VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule);
+		public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule){
+			return this.vaccionationScheduleRepository.updateVaccinationSchedule(schedule);
+		}
 		
-		VaccinationSchedule getVaccinationScheduleById(int id);
+		public VaccinationSchedule getVaccinationScheduleById(int id){
+			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id);
+		}
 	
 		public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){
 			return this.nurseRepository.getNurseWithMoreThanNYearsExperience(years);
 		}
 		
-		public List<Nurse> getNurseNotShot() { return this.nurseRepository.getNurseNotShot(); }
+		public List<Nurse> getNurseNotShot() {
+			return this.nurseRepository.getNurseNotShot();
+		}
 		
-		public String getLessEmployeesSupportStaffArea(){ return this.supportStaffRepository.getLessEmployeesSupportStaffArea();}
+		public String getLessEmployeesSupportStaffArea(){
+			return this.supportStaffRepository.getLessEmployeesSupportStaffArea();
+		}
 
 		public List<Personal> getStaffWithName(String name){
 			return this.personalRepository.getStaffWithName(name);
