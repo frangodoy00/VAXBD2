@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import ar.edu.unlp.info.bd2.model.*;
 import ar.edu.unlp.info.bd2.repositories.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-
-import ar.edu.unlp.info.bd2.model.Centre;
-import ar.edu.unlp.info.bd2.model.Nurse;
-import ar.edu.unlp.info.bd2.model.Patient;
-import ar.edu.unlp.info.bd2.model.Personal;
-import ar.edu.unlp.info.bd2.model.Shot;
-import ar.edu.unlp.info.bd2.model.SupportStaff;
-import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
-import ar.edu.unlp.info.bd2.model.Vaccine;
 
 public class SpringDataVaxService implements VaxService{
 
@@ -37,6 +29,10 @@ public class SpringDataVaxService implements VaxService{
 	VaccionationScheduleRepository vaccionationScheduleRepository;
 	@Autowired
 	ShotCertificateRepository shotCertificateRepository;
+	@Autowired
+	ShotRepository shotRepository;
+	@Autowired
+	PatientRepository patientRepository;
 	
 
 	/**Cree este constructoor vacio por que sino me tira error en SpringDataConfiguration**/
@@ -53,7 +49,14 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el usuario creado
 		 * @throws VaxException
 		 */
-		public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException;
+		public Patient createPatient(String email,String fullname, String password, Date dayOfBirth) throws VaxException{
+				if ( this.getPatientByEmail(email).isPresent()){
+					VaxException exception = new VaxException("Constraint Violation");
+					throw exception;
+				}
+				return patientRepository.save(new Patient(email,fullname,password,dayOfBirth));
+		}
+
 
 		/**
 		 *
@@ -80,15 +83,20 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el usuario creado
 		 * @throws VaxException
 		 */
-		Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException;
-		
+		public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException{
+			return shotRepository.save(new Shot(patient, vaccine, date,centre,nurse));
+		}
+
 
 		/**
 		 * 
 		 * @param email email del usuario
 		 * @return
 		 */
-		Optional<Patient> getPatientByEmail(String email);
+		public Optional<Patient> getPatientByEmail(String email){
+			Pageable pageable = PageRequest.of(1,1);
+			return this.patientRepository.getPatientByEmail(email,pageable);
+		}
 
 
 		/**
@@ -222,6 +230,12 @@ public class SpringDataVaxService implements VaxService{
 			Pageable pageable = PageRequest.of(1,1);
 			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable);
 		}
+		public List<Vaccine> getUnappliedVaccines(){
+			return this.vaccineRepository.getUnappliedVaccines();
+		}
+		public List<Patient> getAllPatients() {
+		return this.patientRepository.getAllPatients();
+	}
 	
 		public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){
 			return this.nurseRepository.getNurseWithMoreThanNYearsExperience(years);
@@ -229,6 +243,16 @@ public class SpringDataVaxService implements VaxService{
 		
 		public List<Nurse> getNurseNotShot() {
 			return this.nurseRepository.getNurseNotShot();
+		}
+
+		public List<Centre> getCentresTopNStaff(int n){
+			return this.centreRepository.getCentresTopNStaff(n);
+		}
+
+
+		public Centre getTopShotCentre(){
+			Pageable pageable = PageRequest.of(1,1);
+			return this.centreRepository.getTopShotCentre(pageable);
 		}
 		
 		public String getLessEmployeesSupportStaffArea(){
@@ -238,5 +262,9 @@ public class SpringDataVaxService implements VaxService{
 
 		public List<Personal> getStaffWithName(String name){
 			return this.personalRepository.getStaffWithName(name);
+		}
+
+		public List<ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate){
+			return this.shotCertificateRepository.getShotCertificatesBetweenDates(startDate,endDate);
 		}
 }
