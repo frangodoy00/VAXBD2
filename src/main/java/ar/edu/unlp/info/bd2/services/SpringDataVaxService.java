@@ -246,7 +246,8 @@ public class SpringDataVaxService implements VaxService{
 		}
 
 		public List<Centre> getCentresTopNStaff(int n){
-			return this.centreRepository.getCentresTopNStaff(n);
+			Pageable pageable = PageRequest.of(1,n);
+			return this.centreRepository.getCentresTopNStaff(pageable);
 		}
 
 
