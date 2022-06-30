@@ -20,7 +20,7 @@ public interface CentreRepository extends CrudRepository <Centre, Integer> {
 
 
 	@Query("select c from Centre c join c.staffs as st group by c.id order by count(st) desc")
-	public List<Centre> getCentresTopNStaff(Pageable pageable);
+	public List<Centre> getCentresTopNStaff();
 
 	@Query("select s.centre from Shot s group by s.centre order by count(s.centre) desc")
 	public Centre getTopShotCentre(Pageable pageable);

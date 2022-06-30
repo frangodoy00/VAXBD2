@@ -84,7 +84,12 @@ public class SpringDataVaxService implements VaxService{
 		 * @throws VaxException
 		 */
 		public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException{
-			return shotRepository.save(new Shot(patient, vaccine, date,centre,nurse));
+			ShotCertificate certificate = this.createShotCertificate(date);
+			return shotRepository.save(new Shot(patient, vaccine, date,centre,nurse,certificate));
+		}
+		
+		public ShotCertificate createShotCertificate(Date date) throws VaxException {
+			return shotCertificateRepository.save(new ShotCertificate(date));
 		}
 
 
@@ -246,8 +251,7 @@ public class SpringDataVaxService implements VaxService{
 		}
 
 		public List<Centre> getCentresTopNStaff(int n){
-			Pageable pageable = PageRequest.of(1,n);
-			return this.centreRepository.getCentresTopNStaff(pageable);
+			return this.centreRepository.getCentresTopNStaff();
 		}
 
 
