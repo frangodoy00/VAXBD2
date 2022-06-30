@@ -5,7 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import ar.edu.unlp.info.bd2.repositories.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.info.bd2.model.Centre;
 import ar.edu.unlp.info.bd2.model.Nurse;
@@ -18,26 +23,21 @@ import ar.edu.unlp.info.bd2.model.Vaccine;
 
 public class SpringDataVaxService implements VaxService{
 
+	@Autowired
 	CentreRepository centreRepository;
+	@Autowired
 	SupportStaffRepository supportStaffRepository;
+	@Autowired
 	NurseRepository nurseRepository;
+	@Autowired
 	PersonalRepository personalRepository;
+	@Autowired
 	VaccineRepository vaccineRepository;
+	@Autowired
 	VaccionationScheduleRepository vaccionationScheduleRepository;
+	@Autowired
 	ShotCertificateRepository shotCertificateRepository;
 	
-	
-	public SpringDataVaxService(CentreRepository centreRepository, SupportStaffRepository supportStaffRepository,
-								NurseRepository nurseRepository, PersonalRepository personalRepository,
-								VaccineRepository vaccineRepository,
-								VaccionationScheduleRepository vaccionationScheduleRepository){
-		this.centreRepository = centreRepository;
-		this.nurseRepository = nurseRepository;
-		this.supportStaffRepository = supportStaffRepository;
-		this.personalRepository = personalRepository;
-		this.vaccineRepository = vaccineRepository;
-		this.vaccionationScheduleRepository = vaccionationScheduleRepository;
-	}
 
 	/**Cree este constructoor vacio por que sino me tira error en SpringDataConfiguration**/
 	public SpringDataVaxService() {
@@ -61,8 +61,13 @@ public class SpringDataVaxService implements VaxService{
 		 * @return la vacuna creada
 		 * @throws VaxException
 		 */
+		@Transactional
 		public Vaccine createVaccine(String name) throws VaxException{
-			return vaccineRepository.createVaccine(name);
+			if ( this.getVaccineByName(name).isPresent()){
+				VaxException exception = new VaxException("Constraint Violation");
+				throw exception;
+			}
+			return vaccineRepository.save(new Vaccine(name));
 		}
 
 		/**
@@ -92,7 +97,8 @@ public class SpringDataVaxService implements VaxService{
 		 * @return
 		 */
 		public Optional<Vaccine> getVaccineByName(String name){
-			return this.vaccineRepository.getVaccineByName(name);
+			Pageable pageable = PageRequest.of(1,1);
+			return this.vaccineRepository.getVaccineByName(name, pageable);
 		}
 
 		/**
@@ -101,7 +107,14 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el centro de vacunación nuevo
 		 * @throws VaxException
 		 */
-		Centre createCentre(String name) throws VaxException;
+		@Transactional
+		public Centre createCentre(String name) throws VaxException{
+			if ( this.getCentreByName(name).isPresent()){
+				VaxException exception = new VaxException("Constraint Violation");
+				throw exception;
+			}
+			return centreRepository.save(new Centre(name));
+		}
 
 		/**
 		 * @param dni el dni
@@ -110,8 +123,19 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el enfermero creado
 		 * @throws VaxException
 		 */
-		Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException;
+		public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException{
+			if ( this.getNurseByDni(dni).isPresent()){
+				VaxException exception = new VaxException("Constraint Violation");
+				throw exception;
+			}
+			return nurseRepository.save(new Nurse(fullName,dni,experience));
+		}
 
+		private Optional<Nurse> getNurseByDni(String dni) {
+			Pageable pageable = PageRequest.of(1,1);
+			return this.nurseRepository.getNurseByDni(dni, pageable);
+		}
+		
 		/**
 		* @param dni el dni
 		* @param fullName nombre completo
@@ -119,14 +143,30 @@ public class SpringDataVaxService implements VaxService{
 		* @return el personal de apoyo creado
 		* @throws VaxException
 		* */
-		SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException;
+		public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException{
+			if ( this.getSupportStaffByDni(dni).isPresent()){
+				VaxException exception = new VaxException("Constraint Violation");
+				throw exception;
+			}
+			return supportStaffRepository.save(new SupportStaff(dni,fullName,area));
+		}
+
+		/**
+		 * @param dni el dni del SupportStaff a buscar
+		 * @return el SupportStaff
+		 * */
+		public Optional<SupportStaff> getSupportStaffByDni(String dni){
+			Pageable pageable = PageRequest.of(1,1);
+			return this.supportStaffRepository.getSupportStaffByDni(dni, pageable);
+		}
 
 		/**
 		 * @return el esquema nueva vacío
 		 * @throws VaxException
 		 * */
+		@Transactional
 		public VaccinationSchedule createVaccinationSchedule() throws VaxException{
-			return this.vaccionationScheduleRepository.createVaccinationSchedule();
+			return this.vaccionationScheduleRepository.save(new VaccinationSchedule());
 		}
 
 		/**
@@ -134,7 +174,8 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el esquema de vacunación
 		 * */
 		public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException{
-			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id);
+			Pageable pageable = PageRequest.of(1,1);
+			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable);
 		}
 
 		/**
@@ -143,7 +184,8 @@ public class SpringDataVaxService implements VaxService{
 		 * */
 		@Query
 		public Optional<Centre> getCentreByName(String name) throws VaxException{
-			return this.centreRepository.getCentreByName(name);
+			Pageable pageable = PageRequest.of(1,1);
+			return this.centreRepository.getCentreByName(name, pageable);
 		}
 
 		/**
@@ -151,23 +193,18 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el staff
 		 * @throws VaxException 
 		 */
-		SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException;
+		public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException{
+			return this.supportStaffRepository.save(staff);
+		}
 
 		/**
 		 * @param centre el centre a actualizar
 		 * @return el centre
 		 * @throws VaxException 
 		 */
+		@Transactional
 		public Centre updateCentre(Centre centre){
-			this.centreRepository.updateCentre(centre);
-		}
-
-		/**
-		 * @param dni el dni del SupportStaff a buscar
-		 * @return el SupportStaff
-		 * */
-		public Optional<SupportStaff> getSupportStaffByDni(String dni){
-			return this.supportStaffRepository.getSupportStaffByDni(dni);
+			return this.centreRepository.updateCentre(centre);
 		}
 		
 		/**
@@ -175,12 +212,15 @@ public class SpringDataVaxService implements VaxService{
 		 * @param schedule
 		 * @return el VaccinationSchedule actualizado.
 		 */
+		@Transactional
 		public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule){
-			return this.vaccionationScheduleRepository.updateVaccinationSchedule(schedule);
+			return this.vaccionationScheduleRepository.save(schedule);
+			//return this.vaccionationScheduleRepository.updateVaccinationSchedule(schedule);
 		}
 		
 		public VaccinationSchedule getVaccinationScheduleById(int id){
-			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id);
+			Pageable pageable = PageRequest.of(1,1);
+			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable);
 		}
 	
 		public List<Nurse> getNurseWithMoreThanNYearsExperience(int years){
@@ -192,7 +232,8 @@ public class SpringDataVaxService implements VaxService{
 		}
 		
 		public String getLessEmployeesSupportStaffArea(){
-			return this.supportStaffRepository.getLessEmployeesSupportStaffArea();
+			Pageable pageable = PageRequest.of(1,1);
+			return this.supportStaffRepository.getLessEmployeesSupportStaffArea(pageable);
 		}
 
 		public List<Personal> getStaffWithName(String name){

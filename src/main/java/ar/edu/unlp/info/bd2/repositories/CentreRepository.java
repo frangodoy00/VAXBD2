@@ -2,13 +2,19 @@ package ar.edu.unlp.info.bd2.repositories;
 import java.util.Optional;
 
 import ar.edu.unlp.info.bd2.model.Centre;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 
 public interface CentreRepository extends CrudRepository <Centre, Integer> {
 
-	public Centre getCentreById(int id);
-	public Optional<Centre>getCentreByName(String name);
+	@Query("select c from Centre c where c.id = :id")
+	public Centre getCentreById(@Param("id") int id, Pageable pageable);
+	@Query("select c from Centre c where c.name = :name")
+	public Optional<Centre>getCentreByName(@Param("name") String name, Pageable pageable);
 	public Centre updateCentre(Centre centre);
 
 }
