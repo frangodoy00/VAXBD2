@@ -50,8 +50,7 @@ public class SpringDataVaxService implements VaxService{
 		 * @throws VaxException
 		 */
 		public Patient createPatient(String email,String fullname, String password, Date dayOfBirth) throws VaxException{
-				Pageable pageable = PageRequest.of(1,1);
-				if (! this.patientRepository.getPatientByEmail(email, pageable).isEmpty()){
+				if (! this.patientRepository.findByEmail(email).isEmpty()){
 					VaxException exception = new VaxException("Constraint Violation");
 					throw exception;
 				}
@@ -100,8 +99,7 @@ public class SpringDataVaxService implements VaxService{
 		 * @return
 		 */
 		public Optional<Patient> getPatientByEmail(String email){
-			Pageable pageable = PageRequest.of(1,1);
-			Optional<Patient> patient = this.patientRepository.getPatientByEmail(email, pageable).get(1);
+			Optional<Patient> patient = Optional.of(this.patientRepository.findByEmail(email).get(0));
 			return patient;
 		}
 
