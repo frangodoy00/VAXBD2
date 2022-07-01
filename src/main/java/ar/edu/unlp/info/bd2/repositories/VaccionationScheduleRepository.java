@@ -1,5 +1,6 @@
 package ar.edu.unlp.info.bd2.repositories;
 
+import ar.edu.unlp.info.bd2.model.Centre;
 import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
 import ar.edu.unlp.info.bd2.model.Vaccine;
 import org.springframework.data.domain.Pageable;
@@ -12,9 +13,8 @@ import java.util.Optional;
 
 public interface VaccionationScheduleRepository
         extends CrudRepository<VaccinationSchedule, Integer> {
-    @Query("from VaccinationSchedule v where v.id = :id")
-    public List<VaccinationSchedule> getVaccinationScheduleById(@Param("id") Long id, Pageable pageable) throws VaxException;
-    
-    @Query("from VaccinationSchedule v where v.id = :id")
-    public List<VaccinationSchedule> getVaccinationScheduleById(@Param("id") int id, Pageable pageable);
+
+    List<VaccinationSchedule> findById(long id);
+
+    List<VaccinationSchedule> findById(int id);
 }

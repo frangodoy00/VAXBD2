@@ -67,7 +67,7 @@ public class SpringDataVaxService implements VaxService{
 		 */
 		@Transactional
 		public Vaccine createVaccine(String name) throws VaxException{
-			if ( this.getVaccineByName(name).isPresent()){
+			if (! this.vaccineRepository.findByName(name).isEmpty()){
 				VaxException exception = new VaxException("Constraint Violation");
 				throw exception;
 			}
@@ -112,8 +112,7 @@ public class SpringDataVaxService implements VaxService{
 		 * @return
 		 */
 		public Optional<Vaccine> getVaccineByName(String name){
-			Pageable pageable = PageRequest.of(1,1);
-			Optional<Vaccine> vaccine = this.vaccineRepository.getVaccineByName(name, pageable).get(1);
+			Optional<Vaccine> vaccine = Optional.of(this.vaccineRepository.findByName(name).get(0));
 			return vaccine;
 		}
 
@@ -186,8 +185,7 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el esquema de vacunación
 		 * */
 		public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException{
-			Pageable pageable = PageRequest.of(1,1);
-			VaccinationSchedule vacc = this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable).get(1);
+			VaccinationSchedule vacc = this.vaccionationScheduleRepository.findById(id).get(0);
 			return vacc;
 		}
 
@@ -235,8 +233,7 @@ public class SpringDataVaxService implements VaxService{
 		}
 		
 		public VaccinationSchedule getVaccinationScheduleById(int id){
-			Pageable pageable = PageRequest.of(1,1);
-			VaccinationSchedule vacc = this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable).get(1);
+			VaccinationSchedule vacc = this.vaccionationScheduleRepository.findById(id).get(0);
 			return vacc;
 		}
 		public List<Vaccine> getUnappliedVaccines(){

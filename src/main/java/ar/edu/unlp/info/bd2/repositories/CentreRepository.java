@@ -16,8 +16,8 @@ public interface CentreRepository extends CrudRepository <Centre, Integer> {
 	public List<Centre> getCentreById(@Param("id") int id, Pageable pageable);
 
 	List<Centre> findByName(String name);
-	// @Query("select c from Centre c where c.name = :name")
-	// public List<Optional<Centre>> getCentreByName(@Param("name") String name, Pageable pageable);
+	/// @Query("select c from Centre c where c.name = :name")
+	/// public List<Optional<Centre>> getCentreByName(@Param("name") String name, Pageable pageable);
 
 	// public Centre updateCentre(Centre centre);
 
