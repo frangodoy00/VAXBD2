@@ -125,7 +125,8 @@ public class SpringDataVaxService implements VaxService{
 		 */
 		@Transactional
 		public Centre createCentre(String name) throws VaxException{
-			if ( this.getCentreByName(name).isPresent()){
+			Pageable pageable = PageRequest.of(1,1);
+			if (! centreRepository.getCentreByName(name,pageable).isEmpty()){
 				VaxException exception = new VaxException("Constraint Violation");
 				throw exception;
 			}
@@ -140,17 +141,12 @@ public class SpringDataVaxService implements VaxService{
 		 * @throws VaxException
 		 */
 		public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException{
-			if ( this.getNurseByDni(dni).isPresent()){
+			Pageable pageable = PageRequest.of(1,1);
+			if (! nurseRepository.getNurseByDni(dni,pageable).isEmpty()){
 				VaxException exception = new VaxException("Constraint Violation");
 				throw exception;
 			}
 			return nurseRepository.save(new Nurse(fullName,dni,experience));
-		}
-
-		private Optional<Nurse> getNurseByDni(String dni) {
-			Pageable pageable = PageRequest.of(1,1);
-			Optional<Nurse> nurse = this.nurseRepository.getNurseByDni(dni, pageable).get(1);
-			return nurse;
 		}
 		
 		/**
@@ -161,11 +157,12 @@ public class SpringDataVaxService implements VaxService{
 		* @throws VaxException
 		* */
 		public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException{
-			if ( this.getSupportStaffByDni(dni).isPresent()){
+			Pageable pageable = PageRequest.of(1,1);
+			if (! supportStaffRepository.getSupportStaffByDni(dni,pageable).isEmpty()){
 				VaxException exception = new VaxException("Constraint Violation");
 				throw exception;
 			}
-			return supportStaffRepository.save(new SupportStaff(dni,fullName,area));
+			return supportStaffRepository.save(new SupportStaff(fullName,dni,area));
 		}
 
 		/**
@@ -174,7 +171,7 @@ public class SpringDataVaxService implements VaxService{
 		 * */
 		public Optional<SupportStaff> getSupportStaffByDni(String dni){
 			Pageable pageable = PageRequest.of(1,1);
-			Optional<SupportStaff> supp = this.supportStaffRepository.getSupportStaffByDni(dni, pageable).get(1);
+			Optional<SupportStaff> supp = supportStaffRepository.getSupportStaffByDni(dni, pageable).get(1);
 			return supp;
 		}
 
