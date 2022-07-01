@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface PatientRepository extends CrudRepository <Patient, Integer>{
 
     @Query("select p from Patient p where p.email = :email")
-    public Optional<Patient> getPatientByEmail(@Param("email") String email, Pageable pageable);
+    public List<Optional<Patient>> getPatientByEmail(@Param("email") String email, Pageable pageable);
 
     @Query("select p from Patient p")
     public List<Patient> getAllPatients();

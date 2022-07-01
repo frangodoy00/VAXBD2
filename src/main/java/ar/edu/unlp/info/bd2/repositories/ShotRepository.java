@@ -9,11 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 import java.util.Date;
+import java.util.List;
 
 public interface ShotRepository extends CrudRepository <Shot, Integer> {
 
-    @Query("select s from Shot p where s.id = :id")
-    public Optional<Shot> getShotById(@Param("id") int id, Pageable pageable);
+    @Query("select s from Shot s where s.id = :id")
+    public List<Optional<Shot>> getShotById(@Param("id") int id, Pageable pageable);
 
 
 

@@ -16,9 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class SpringDataVaxService implements VaxService{
 
 	@Autowired
-	CentreRepository centreRepository;
-	@Autowired
 	SupportStaffRepository supportStaffRepository;
+	@Autowired
+	CentreRepository centreRepository;
 	@Autowired
 	NurseRepository nurseRepository;
 	@Autowired
@@ -50,7 +50,8 @@ public class SpringDataVaxService implements VaxService{
 		 * @throws VaxException
 		 */
 		public Patient createPatient(String email,String fullname, String password, Date dayOfBirth) throws VaxException{
-				if ( this.getPatientByEmail(email).isPresent()){
+				Pageable pageable = PageRequest.of(1,1);
+				if (! this.patientRepository.getPatientByEmail(email, pageable).isEmpty()){
 					VaxException exception = new VaxException("Constraint Violation");
 					throw exception;
 				}
@@ -100,7 +101,8 @@ public class SpringDataVaxService implements VaxService{
 		 */
 		public Optional<Patient> getPatientByEmail(String email){
 			Pageable pageable = PageRequest.of(1,1);
-			return this.patientRepository.getPatientByEmail(email,pageable);
+			Optional<Patient> patient = this.patientRepository.getPatientByEmail(email, pageable).get(1);
+			return patient;
 		}
 
 
@@ -111,7 +113,8 @@ public class SpringDataVaxService implements VaxService{
 		 */
 		public Optional<Vaccine> getVaccineByName(String name){
 			Pageable pageable = PageRequest.of(1,1);
-			return this.vaccineRepository.getVaccineByName(name, pageable);
+			Optional<Vaccine> vaccine = this.vaccineRepository.getVaccineByName(name, pageable).get(1);
+			return vaccine;
 		}
 
 		/**
@@ -146,7 +149,8 @@ public class SpringDataVaxService implements VaxService{
 
 		private Optional<Nurse> getNurseByDni(String dni) {
 			Pageable pageable = PageRequest.of(1,1);
-			return this.nurseRepository.getNurseByDni(dni, pageable);
+			Optional<Nurse> nurse = this.nurseRepository.getNurseByDni(dni, pageable).get(1);
+			return nurse;
 		}
 		
 		/**
@@ -170,7 +174,8 @@ public class SpringDataVaxService implements VaxService{
 		 * */
 		public Optional<SupportStaff> getSupportStaffByDni(String dni){
 			Pageable pageable = PageRequest.of(1,1);
-			return this.supportStaffRepository.getSupportStaffByDni(dni, pageable);
+			Optional<SupportStaff> supp = this.supportStaffRepository.getSupportStaffByDni(dni, pageable).get(1);
+			return supp;
 		}
 
 		/**
@@ -188,7 +193,8 @@ public class SpringDataVaxService implements VaxService{
 		 * */
 		public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException{
 			Pageable pageable = PageRequest.of(1,1);
-			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable);
+			VaccinationSchedule vacc = this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable).get(1);
+			return vacc;
 		}
 
 		/**
@@ -198,7 +204,8 @@ public class SpringDataVaxService implements VaxService{
 		@Query
 		public Optional<Centre> getCentreByName(String name) throws VaxException{
 			Pageable pageable = PageRequest.of(1,1);
-			return this.centreRepository.getCentreByName(name, pageable);
+			Optional<Centre> centre = this.centreRepository.getCentreByName(name, pageable).get(1);
+			return centre;
 		}
 
 		/**
@@ -234,7 +241,8 @@ public class SpringDataVaxService implements VaxService{
 		
 		public VaccinationSchedule getVaccinationScheduleById(int id){
 			Pageable pageable = PageRequest.of(1,1);
-			return this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable);
+			VaccinationSchedule vacc = this.vaccionationScheduleRepository.getVaccinationScheduleById(id, pageable).get(1);
+			return vacc;
 		}
 		public List<Vaccine> getUnappliedVaccines(){
 			return this.vaccineRepository.getUnappliedVaccines();
@@ -258,12 +266,14 @@ public class SpringDataVaxService implements VaxService{
 
 		public Centre getTopShotCentre(){
 			Pageable pageable = PageRequest.of(1,1);
-			return this.centreRepository.getTopShotCentre(pageable);
+			Centre centre = this.centreRepository.getTopShotCentre(pageable).get(1);
+			return centre;
 		}
 		
 		public String getLessEmployeesSupportStaffArea(){
 			Pageable pageable = PageRequest.of(1,1);
-			return this.supportStaffRepository.getLessEmployeesSupportStaffArea(pageable);
+			String area = this.supportStaffRepository.getLessEmployeesSupportStaffArea(pageable).get(1);
+			return area;
 		}
 
 		public List<Personal> getStaffWithName(String name){

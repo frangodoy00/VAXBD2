@@ -21,7 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
-@Rollback(true)
+@Rollback(false)
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(
         classes = {SpringDataConfiguration.class},
@@ -41,7 +41,6 @@ public class VaxServiceTestCase {
 		cal.set(Calendar.DAY_OF_MONTH, 17);
 		dob = cal.getTime();
 	}
-
     @Test
     public void testCreatePatient() throws VaxException{
 		Patient fede = this.service.createPatient("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob);

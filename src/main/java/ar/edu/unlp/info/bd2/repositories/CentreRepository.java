@@ -13,9 +13,9 @@ import org.springframework.data.repository.query.Param;
 public interface CentreRepository extends CrudRepository <Centre, Integer> {
 
 	@Query("select c from Centre c where c.id = :id")
-	public Centre getCentreById(@Param("id") int id, Pageable pageable);
+	public List<Centre> getCentreById(@Param("id") int id, Pageable pageable);
 	@Query("select c from Centre c where c.name = :name")
-	public Optional<Centre>getCentreByName(@Param("name") String name, Pageable pageable);
+	public List<Optional<Centre>> getCentreByName(@Param("name") String name, Pageable pageable);
 	// public Centre updateCentre(Centre centre);
 
 
@@ -23,7 +23,7 @@ public interface CentreRepository extends CrudRepository <Centre, Integer> {
 	public List<Centre> getCentresTopNStaff();
 
 	@Query("select s.centre from Shot s group by s.centre order by count(s.centre) desc")
-	public Centre getTopShotCentre(Pageable pageable);
+	public List<Centre> getTopShotCentre(Pageable pageable);
 
 
 

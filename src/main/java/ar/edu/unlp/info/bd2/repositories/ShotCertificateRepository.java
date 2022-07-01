@@ -13,6 +13,6 @@ import java.util.List;
 public interface ShotCertificateRepository extends CrudRepository<ShotCertificate, Integer> {
 
     @Query("select s from ShotCertificate s where s.date BETWEEN :startDate AND :endDate")
-    public List<ShotCertificate> getShotCertificatesBetweenDates(@Param("startDate, endDate") Date startDate, Date endDate);
+    public List<ShotCertificate> getShotCertificatesBetweenDates(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 }
