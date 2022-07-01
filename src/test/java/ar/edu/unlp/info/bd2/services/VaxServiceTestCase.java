@@ -21,7 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
-@Rollback(false)
+@Rollback(true)
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(
         classes = {SpringDataConfiguration.class},

@@ -126,7 +126,7 @@ public class SpringDataVaxService implements VaxService{
 		@Transactional
 		public Centre createCentre(String name) throws VaxException{
 			Pageable pageable = PageRequest.of(1,1);
-			if (! centreRepository.getCentreByName(name,pageable).isEmpty()){
+			if (! centreRepository.findByName(name).isEmpty()){
 				VaxException exception = new VaxException("Constraint Violation");
 				throw exception;
 			}
@@ -200,8 +200,9 @@ public class SpringDataVaxService implements VaxService{
 		 * */
 		@Query
 		public Optional<Centre> getCentreByName(String name) throws VaxException{
-			Pageable pageable = PageRequest.of(1,1);
-			Optional<Centre> centre = this.centreRepository.getCentreByName(name, pageable).get(1);
+			// Pageable pageable = PageRequest.of(1,1);
+			Optional<Centre> centre = Optional.of(this.centreRepository.findByName(name).get(0));
+			// Optional<Centre> centre = this.centreRepository.getCentreByName(name, pageable).get(1);
 			return centre;
 		}
 
