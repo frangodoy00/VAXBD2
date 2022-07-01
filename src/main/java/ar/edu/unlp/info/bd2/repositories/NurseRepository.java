@@ -12,12 +12,8 @@ import ar.edu.unlp.info.bd2.model.Centre;
 import ar.edu.unlp.info.bd2.model.Nurse;
 
 public interface NurseRepository extends CrudRepository <Nurse, Integer> {
-
-	@Query("select n from Nurse n where n.id = :id")
-	public List<Nurse> getNurseById(@Param("id") int id, Pageable pageable);
 	
-	@Query("select n from Nurse n where n.dni = :dni")
-	public List<Optional<Nurse>> getNurseByDni(@Param("dni") String dni, Pageable pageable);
+	List<Nurse> findByDni(String dni);
 	
 	@Query("select n from Nurse n where n.yearsExperience > :years")
 	public List<Nurse> getNurseWithMoreThanNYearsExperience(@Param("years") int years);

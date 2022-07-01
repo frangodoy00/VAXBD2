@@ -141,8 +141,7 @@ public class SpringDataVaxService implements VaxService{
 		 * @throws VaxException
 		 */
 		public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException{
-			Pageable pageable = PageRequest.of(1,1);
-			if (! nurseRepository.getNurseByDni(dni,pageable).isEmpty()){
+			if (! nurseRepository.findByDni(dni).isEmpty()){
 				VaxException exception = new VaxException("Constraint Violation");
 				throw exception;
 			}
@@ -157,8 +156,7 @@ public class SpringDataVaxService implements VaxService{
 		* @throws VaxException
 		* */
 		public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException{
-			Pageable pageable = PageRequest.of(1,1);
-			if (! supportStaffRepository.getSupportStaffByDni(dni,pageable).isEmpty()){
+			if (! supportStaffRepository.findByDni(dni).isEmpty()){
 				VaxException exception = new VaxException("Constraint Violation");
 				throw exception;
 			}
@@ -170,8 +168,7 @@ public class SpringDataVaxService implements VaxService{
 		 * @return el SupportStaff
 		 * */
 		public Optional<SupportStaff> getSupportStaffByDni(String dni){
-			Pageable pageable = PageRequest.of(1,1);
-			Optional<SupportStaff> supp = supportStaffRepository.getSupportStaffByDni(dni, pageable).get(1);
+			Optional<SupportStaff> supp = Optional.of(this.supportStaffRepository.findByDni(dni).get(0));
 			return supp;
 		}
 
