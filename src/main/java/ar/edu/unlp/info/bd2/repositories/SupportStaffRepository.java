@@ -18,5 +18,5 @@ public interface SupportStaffRepository extends CrudRepository <SupportStaff, In
 	List<SupportStaff> findByDni(String dni);
 	
 	@Query("select s.area from SupportStaff s where s.area is not null group by s.area order by count(*) asc")
-	public List<String> getLessEmployeesSupportStaffArea(Pageable pageable);
+	public List<String> getLessEmployeesSupportStaffArea();
 }

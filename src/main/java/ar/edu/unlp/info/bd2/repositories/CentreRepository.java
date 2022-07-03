@@ -26,7 +26,7 @@ public interface CentreRepository extends CrudRepository <Centre, Integer> {
 	public List<Centre> getCentresTopNStaff();
 
 	@Query("select s.centre from Shot s group by s.centre order by count(s.centre) desc")
-	public List<Centre> getTopShotCentre(Pageable pageable);
+	public List<Centre> getTopShotCentre();
 
 
 

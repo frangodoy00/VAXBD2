@@ -11,7 +11,7 @@ import ar.edu.unlp.info.bd2.model.Personal;
 
 public interface PersonalRepository extends CrudRepository <Personal, Integer>{
 	
-	@Query("from Personal p where p.fullName like :name")
+	@Query("from Personal p where p.fullName like %:name")
 	public List<Personal> getStaffWithName(@Param("name") String name);
 
 }

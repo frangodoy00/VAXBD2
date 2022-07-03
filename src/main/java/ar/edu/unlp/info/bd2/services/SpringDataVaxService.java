@@ -250,19 +250,17 @@ public class SpringDataVaxService implements VaxService{
 		}
 
 		public List<Centre> getCentresTopNStaff(int n){
-			return this.centreRepository.getCentresTopNStaff();
+			return this.centreRepository.getCentresTopNStaff().subList(0, n);
 		}
 
 
 		public Centre getTopShotCentre(){
-			Pageable pageable = PageRequest.of(1,1);
-			Centre centre = this.centreRepository.getTopShotCentre(pageable).get(1);
+			Centre centre = this.centreRepository.getTopShotCentre().get(0);
 			return centre;
 		}
 		
 		public String getLessEmployeesSupportStaffArea(){
-			Pageable pageable = PageRequest.of(1,1);
-			String area = this.supportStaffRepository.getLessEmployeesSupportStaffArea(pageable).get(1);
+			String area = this.supportStaffRepository.getLessEmployeesSupportStaffArea().get(0);
 			return area;
 		}
 

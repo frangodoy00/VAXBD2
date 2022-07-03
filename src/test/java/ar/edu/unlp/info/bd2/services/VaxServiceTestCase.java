@@ -114,9 +114,6 @@ public class VaxServiceTestCase {
 		assertEquals(0,ana.getCentres().size());
 		h.addStaff(ana);
 		Centre italiano = this.service.updateCentre(h);
-		System.out.println("PROBANDO---------------------------------------------------");
-		System.out.println(ana.getDni());
-		System.out.println("PROBANDO---------------------------------------------------");
 		Optional<SupportStaff> anaModified = this.service.getSupportStaffByDni(ana.getDni());
 		if (!anaModified.isPresent()){throw new VaxException("No existe el centro con ese nombre");};
 		SupportStaff AnaSaved = anaModified.get();

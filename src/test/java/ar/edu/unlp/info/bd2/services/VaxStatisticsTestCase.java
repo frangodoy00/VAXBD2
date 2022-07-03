@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
-@Rollback(true)
+@Rollback(false)
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(
         classes = {SpringDataConfiguration.class},
